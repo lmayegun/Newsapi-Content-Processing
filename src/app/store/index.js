@@ -28,8 +28,9 @@ const store = createStore(createReducer, enhancer);
 store.subscribe(()=>{
   console.log(store.getState());
 })
-store.dispatch({type:'SAMPLE'});
 
 sagaMiddleware.run(appSagas);
+
+store.dispatch({type:'SAMPLE'});
 
 export default store;

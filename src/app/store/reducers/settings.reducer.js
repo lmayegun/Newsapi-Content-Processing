@@ -2,9 +2,8 @@ const initialState = {};
 
 const settings = function (state = initialState, action){
   switch(action.type){
-    case 'SAMPLE':
+    case 'SAMPLE_SUCCESS':
     {
-      alert("sfsff");
       return { settingSample: true}
     }
     default:
