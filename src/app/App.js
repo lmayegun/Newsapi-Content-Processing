@@ -1,7 +1,9 @@
 import React from 'react';
+import {Provider} from 'react-redux';
 import {Router} from 'react-router-dom';
 import {ThemeProvider} from '@material-ui/core';
 
+import store from './store';
 import history from '@history';
 import AppContext from './AppContext';
 import {defaultMuiTheme} from './configs/themeConfig';
@@ -12,11 +14,13 @@ import '../styles/App.css';
 function App() {
   return (
     <AppContext.Provider>
-      <ThemeProvider theme={defaultMuiTheme()}>
-        <Router history={history}>
-          <SwitchRoute />
-        </Router>
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={defaultMuiTheme()}>
+          <Router history={history}>
+            <SwitchRoute />
+          </Router>
+        </ThemeProvider>
+      </Provider>
     </AppContext.Provider>
   );
 }
