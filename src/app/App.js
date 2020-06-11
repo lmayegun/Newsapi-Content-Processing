@@ -12,7 +12,11 @@ import logo from './logo.svg';
 import '../styles/App.css';
 
 import * as Actions from 'app/store/actions/newsApi';
-store.dispatch( Actions.setNewsApiContents({country:"us",source:"fox-news"}) );
+store.dispatch( Actions.setNewsApiContents({
+                                            query:"trump",
+                                            country:"gb",
+                                            source:"fox-news",
+                                          }) );
 function App() {
   return (
     <AppContext.Provider>
