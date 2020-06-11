@@ -4,42 +4,29 @@ import {
   Route,
 } from "react-router-dom";
 
+import { HomePage } from 'app/pages';
+
 export default function BasicRoute() {
   return (
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-        </Switch>
+    <Switch>
+      <Route exact path="/">
+        <HomePage />
+      </Route>
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route path="/dashboard">
+        <Dashboard />
+      </Route>
+    </Switch>
   );
 }
 
-function Home() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+// function Home() {
+//   return (
+//
+//   );
+// }
 
 function About() {
   return (
