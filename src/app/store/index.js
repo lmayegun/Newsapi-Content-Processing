@@ -31,6 +31,4 @@ store.subscribe(()=>{
 
 sagaMiddleware.run(appSagas);
 
-store.dispatch({type:'SAMPLE'});
-
 export default store;

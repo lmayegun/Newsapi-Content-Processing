@@ -11,6 +11,8 @@ import {SwitchRoute} from './route-system';
 import logo from './logo.svg';
 import '../styles/App.css';
 
+import * as Actions from 'app/store/actions/newsApi';
+store.dispatch( Actions.setNewsApiContents({country:"us",source:"fox-news"}) );
 function App() {
   return (
     <AppContext.Provider>
