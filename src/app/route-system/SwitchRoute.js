@@ -22,12 +22,6 @@ export default function BasicRoute() {
   );
 }
 
-// function Home() {
-//   return (
-//
-//   );
-// }
-
 function About() {
   return (
     <div>
