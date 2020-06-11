@@ -4,13 +4,13 @@ import {
   Route,
 } from "react-router-dom";
 
-import { HomePage } from 'app/pages';
+import { SearchPage } from 'app/pages';
 
 export default function BasicRoute() {
   return (
     <Switch>
       <Route exact path="/">
-        <HomePage />
+        <SearchPage />
       </Route>
       <Route path="/about">
         <About />
