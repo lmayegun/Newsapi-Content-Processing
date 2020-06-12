@@ -5,14 +5,24 @@ import {newsApiKey} from 'config/apiKeys';
 
 function* setNewsApiContents( {payload} ){
   try{
-    console.log(payload)
-    const query = payload.query ? payload.query : 'boris';
+    const query = payload.query ? payload.query : null;
     const country = payload.country ? payload.country : 'de';
-    const request = yield axios.get(`https://newsapi.org/v2/top-headlines?q=${query}&country=${country}&${newsApiKey}`)
-                          .then((response)=>{
-                            console.log(response)
-                            return response.data;
-                          })
+
+    let request = '';
+
+    if(!query){
+      request = yield axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&${newsApiKey}`)
+                            .then((response)=>{
+                              console.log(response)
+                              return response.data;
+                            })
+    }else{
+      request = yield axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&q=${query}&${newsApiKey}`)
+                            .then((response)=>{
+                              console.log(response)
+                              return response.data;
+                            })
+    }
     yield put({
                type:"NEWSAPI_CONTENT_SUCCESS",
                payload: request
