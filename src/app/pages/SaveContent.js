@@ -1,9 +1,20 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 
-const SaveContent = ()=>{
+const SaveContent = ({location})=>{
+  console.log(location.article, "peace");
+  const article = location.article;
+  if(!article){
+    return <h1> No Article to work on </h1>
+  }
   return(
-    <h1> Save Content </h1>
+    <div>
+      <h1> Save Content </h1>
+      <input
+        placeholder={article.title}
+        />
+    </div>
   )
 };
 
-export default SaveContent;
+export default withRouter(SaveContent);
