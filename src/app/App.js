@@ -13,8 +13,7 @@ import '../styles/App.css';
 
 import * as Actions from 'app/store/actions/newsApi';
 store.dispatch( Actions.setNewsApiContents({
-
-
+                                            country:"gb",
                                             source:"fox-news",
                                           }) );
 function App() {

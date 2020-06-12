@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 
 const SearcResults = ({articles}) => {
 
@@ -12,7 +13,9 @@ const SearcResults = ({articles}) => {
         articles.articles.map((item, index)=>{
           return(
             <div key={index}>
-              <h5 onClick={()=>console.log(item)}> {item.title} </h5>
+              <Link to={'/save'}>
+                <h5> {item.title} </h5>
+              </Link>
             </div>
           );
         })

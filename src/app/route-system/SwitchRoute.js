@@ -4,7 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 
-import { SearchPage } from 'app/pages';
+import { SearchPage, SaveContent } from 'app/pages';
 
 export default function BasicRoute() {
   return (
@@ -12,8 +12,8 @@ export default function BasicRoute() {
       <Route exact path="/">
         <SearchPage />
       </Route>
-      <Route path="/about">
-        <About />
+      <Route path="/save">
+        <SaveContent />
       </Route>
       <Route path="/dashboard">
         <Dashboard />
