@@ -25,9 +25,7 @@ const SearchPageHeader = ()=>{
       <div className={classes.title}> NEWS API CONTENTS </div>
       <div className={classes.searchFilter}>
         <Paper className={""} elevation={1}>
-ss
             <Icon className={""} color="action">search</Icon>
-
             <Input
                 placeholder="Search"
                 className={""}

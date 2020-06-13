@@ -5,12 +5,12 @@ const SearcResults = ({articles}) => {
 
   return(
     <div>
-      { articles.articles.length === 0 && (
+      { articles == null && (
           <h5> No Results </h5>
       )}
 
-      { articles.articles && (
-        articles.articles.map((item, index)=>{
+      { articles && (
+        articles.map((item, index)=>{
           return(
             <div key={index}>
               <Link

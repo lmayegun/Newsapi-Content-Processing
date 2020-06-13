@@ -1,5 +1,7 @@
 import {put, takeLatest} from 'redux-saga/effects';
 import axios from 'axios';
+import _ from '@lodash';
+import database from '../../../firebase/firebase';
 
 import {newsApiKey} from 'config/apiKeys';
 
@@ -7,20 +9,34 @@ function* setNewsApiContents( {payload} ){
   try{
     const query = payload.query ? payload.query : null;
     const country = payload.country ? payload.country : 'de';
+    const category = payload.category ? payload.category : 'sport';
 
     let request = '';
 
     if(!query){
-      request = yield axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&${newsApiKey}`)
+      request = yield axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&${newsApiKey}`)
                             .then((response)=>{
-                              console.log(response)
-                              return response.data;
+
+                              const check = response.data.articles.map((item)=>{
+                                return _.assignIn(item, {category}, {country});
+                              });
+
+                              console.log(check, "check")
+                              return response.data.articles.map((item)=>{
+                                return _.assignIn(item, {category}, {country});
+                              });
                             })
     }else{
-      request = yield axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&q=${query}&${newsApiKey}`)
+      request = yield axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&q=${query}&${newsApiKey}`)
                             .then((response)=>{
-                              console.log(response)
-                              return response.data;
+                              const check = response.data.articles.map((item)=>{
+                                return _.assignIn(item, {category}, {country});
+                              });
+
+                              console.log(check, "check")
+                              return response.data.articles.map((item)=>{
+                                return _.assignIn(item, {category}, {country});
+                              });
                             })
     }
     yield put({
@@ -33,7 +49,9 @@ function* setNewsApiContents( {payload} ){
 };
 function* setNewsApiContent({payload}){
   try{
-
+    database.ref(payload.category).push({
+      ...payload
+    });
     yield put({
                type:"NEWSAPI_CONTENT_SUCCESS",
                payload

@@ -12,7 +12,7 @@ const SearchPage = () => {
   const [articles, setArticles]   = useState(articlesSelector);
 
   useEffect(()=>{
-    dispatch(Actions.setNewsApiContents({country:"gb", source:"fox-news"}));
+    dispatch(Actions.setNewsApiContents({query:"usher", country:"us", category:"entertainment"}));
   },[dispatch])
 
   useEffect(()=>{
