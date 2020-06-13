@@ -24,8 +24,20 @@ function* setNewsApiContents( {payload} ){
                             })
     }
     yield put({
-               type:"NEWSAPI_CONTENT_SUCCESS",
+               type:"NEWSAPI_CONTENTS_SUCCESS",
                payload: request
+              })
+  }catch(e){
+
+  }
+};
+function* setNewsApiContent({payload}){
+  try{
+    console.log(payload, "re-run")
+
+    yield put({
+               type:"NEWSAPI_CONTENT_SUCCESS",
+               payload
               })
   }catch(e){
 
@@ -34,4 +46,5 @@ function* setNewsApiContents( {payload} ){
 
 export const newsApiSagas = [
   takeLatest('SET_NEWSAPI_CONTENTS', setNewsApiContents),
+  takeLatest('SET_NEWSAPI_CONTENT', setNewsApiContent),
 ]

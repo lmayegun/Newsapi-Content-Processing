@@ -1,14 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
-import {PageLayout} from 'app/components';
+import {PageLayout} from '@newsApi/components';
 import SearchPageHeader from './SearchPageHeader';
 import SearchResults from './SearchResults';
+import * as Actions from 'app/store/actions/newsApi';
 
 const SearchPage = () => {
+  const dispatch                  = useDispatch();
+  const articlesSelector          = useSelector( state => state.newsApi.contents );
+  const [articles, setArticles]   = useState(articlesSelector);
 
-  const articlesSelector        = useSelector( state => state.newsApi.contents );
-  const [articles, setArticles]  = useState(articlesSelector);
+  useEffect(()=>{
+    dispatch(Actions.setNewsApiContents({country:"gb", source:"fox-news"}));
+  },[dispatch])
 
   useEffect(()=>{
     setArticles(articlesSelector);

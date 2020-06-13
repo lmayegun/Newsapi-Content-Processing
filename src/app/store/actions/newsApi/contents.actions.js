@@ -4,3 +4,10 @@ export function setNewsApiContents( payload ){
     payload
   };
 };
+
+export function setNewsApiContent( payload ){
+  return{
+    type: "SET_NEWSAPI_CONTENT",
+    payload
+  };
+};

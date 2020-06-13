@@ -1,66 +1,135 @@
 import React, {useState, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
+import {TextField} from '@material-ui/core';
+import {makeStyles} from '@material-ui/styles';
+import {useSelector, useDispatch} from 'react-redux';
 import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // ES6
+import 'react-quill/dist/quill.snow.css';
+import {PageLayout} from '@newsApi/components';
+import {useForm} from '@newsApi/hooks';
+import * as Actions from 'app/store/actions/newsApi';
 
-import {PageLayout} from 'app/components';
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 const SaveContent = ({location, placeholder, modules, formats})=>{
 
-  const article = location.article;
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const article = useSelector( state => state.newsApi.content );
+
   const [theme, setTheme] = useState();
   const [editorHtml, setEditorHtml] = useState("Smaple Text");
+  const {form, handleChange, setForm} = useForm(article);
 
   useEffect(()=>{
-    if(article == undefined){
-      return
+    dispatch(Actions.setNewsApiContent(location.article));
+  },[dispatch, location.article])
+
+  useEffect(()=>{
+    if(article){
+      setEditorHtml(article.description);
+      setForm(article)
     }
-    setEditorHtml(article.description);
   },[article]);
 
-  function handleChange (content, delta, html, editor) {
+  function handleEditorHtml (content, delta, html, editor){
     setEditorHtml(content);
   }
 
-  if(!article){
-    return <h1> No Article to work on </h1>
-  }
+  console.log(form, "coldplay");
+
   return(
     <PageLayout
       header={<h1> Save Content </h1>}
       content={
         <div>
-          <ReactQuill
-            theme={'snow'}
-            onChange={handleChange}
-            value={editorHtml}
-            modules={{
-              toolbar: [
-                [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
-                [{size: []}],
-                ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                [{'list': 'ordered'}, {'list': 'bullet'},
-                 {'indent': '-1'}, {'indent': '+1'}],
-                ['link', 'image', 'video'],
-                ['clean']
-              ],
-              clipboard: {
-                // toggle to add extra line breaks when pasting HTML:
-                matchVisual: false,
-              }
-            }}
-            formats={[
-              'header', 'font', 'size',
-              'bold', 'italic', 'underline', 'strike', 'blockquote',
-              'list', 'bullet', 'indent',
-              'link', 'image', 'video'
-            ]}
-            bounds={'.app'}
-            placeholder={'placeholder'}
-           />
-           <div dangerouslySetInnerHTML={{__html:editorHtml}}/>
-        </div>
-      }
+          {form && (
+            <form className={classes.root} noValidate autoComplete="off">
+              <TextField
+                id="outlined-basic"
+                label="Title"
+                variant="outlined"
+                defaultValue={form.title}
+              />
+              <ReactQuill
+                theme={'snow'}
+                onChange={handleEditorHtml}
+                value={editorHtml}
+                modules={{
+                  toolbar: [
+                    [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+                    [{size: []}],
+                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                    [{'list': 'ordered'}, {'list': 'bullet'},
+                     {'indent': '-1'}, {'indent': '+1'}],
+                    ['link', 'image', 'video'],
+                    ['clean']
+                  ],
+                  clipboard: {
+                    // toggle to add extra line breaks when pasting HTML:
+                    matchVisual: false,
+                  }
+                }}
+                formats={[
+                  'header', 'font', 'size',
+                  'bold', 'italic', 'underline', 'strike', 'blockquote',
+                  'list', 'bullet', 'indent',
+                  'link', 'image', 'video'
+                ]}
+                bounds={'.app'}
+                placeholder={'placeholder'}
+               />
+               <div dangerouslySetInnerHTML={{__html:editorHtml}}/>
+            </form>
+          )}
+
+          {!form && (
+            <form className={classes.root} noValidate autoComplete="off">
+                <TextField
+                  id="outlined-basic"
+                  label="Title"
+                  variant="outlined"
+                  defaultValue={"Timer"}
+                />
+                <ReactQuill
+                  theme={'snow'}
+                  onChange={handleEditorHtml}
+                  value={editorHtml}
+                  modules={{
+                    toolbar: [
+                      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+                      [{size: []}],
+                      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                      [{'list': 'ordered'}, {'list': 'bullet'},
+                       {'indent': '-1'}, {'indent': '+1'}],
+                      ['link', 'image', 'video'],
+                      ['clean']
+                    ],
+                    clipboard: {
+                      // toggle to add extra line breaks when pasting HTML:
+                      matchVisual: false,
+                    }
+                  }}
+                  formats={[
+                    'header', 'font', 'size',
+                    'bold', 'italic', 'underline', 'strike', 'blockquote',
+                    'list', 'bullet', 'indent',
+                    'link', 'image', 'video'
+                  ]}
+                  bounds={'.app'}
+                  placeholder={'placeholder'}
+                 />
+                 <div dangerouslySetInnerHTML={{__html:editorHtml}}/>
+              </form>
+            )}
+          </div>
+        }
     />
   )
 };

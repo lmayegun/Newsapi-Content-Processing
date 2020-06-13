@@ -8,14 +8,9 @@ import history from '@history';
 import AppContext from './AppContext';
 import {defaultMuiTheme} from './configs/themeConfig';
 import {SwitchRoute} from './route-system';
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import '../styles/App.css';
 
-import * as Actions from 'app/store/actions/newsApi';
-store.dispatch( Actions.setNewsApiContents({
-                                            country:"gb",
-                                            source:"fox-news",
-                                          }) );
 function App() {
   return (
     <AppContext.Provider>
