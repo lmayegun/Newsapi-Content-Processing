@@ -33,7 +33,6 @@ function* setNewsApiContents( {payload} ){
 };
 function* setNewsApiContent({payload}){
   try{
-    console.log(payload, "re-run")
 
     yield put({
                type:"NEWSAPI_CONTENT_SUCCESS",

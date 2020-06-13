@@ -1,4 +1,7 @@
-const initialState = {};
+const initialState = {
+
+};
+
 const newsApi = function ( state = initialState, action){
   switch(action.type){
     case 'NEWSAPI_CONTENTS_SUCCESS':

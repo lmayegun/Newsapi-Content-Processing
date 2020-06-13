@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles, Paper, Button, Input, Icon, Typography} from '@material-ui/core';
+import {makeStyles, Paper, Input, Icon} from '@material-ui/core';
 
 const styles = makeStyles( theme => ({
     container:{

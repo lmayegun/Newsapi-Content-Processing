@@ -5,7 +5,7 @@ const SearcResults = ({articles}) => {
 
   return(
     <div>
-      { articles.articles.length == 0 && (
+      { articles.articles.length === 0 && (
           <h5> No Results </h5>
       )}
 
