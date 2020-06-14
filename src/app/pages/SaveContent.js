@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
-import {TextField} from '@material-ui/core';
+import {TextField, Button} from '@material-ui/core';
+import Icon from '@material-ui/core/Icon';
+import SaveIcon from '@material-ui/icons/Save';
 import {makeStyles} from '@material-ui/styles';
 import {useSelector, useDispatch} from 'react-redux';
 import ReactQuill from 'react-quill';
@@ -107,6 +109,16 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
                 bounds={'.app'}
                 placeholder={'placeholder'}
                />
+               <Button
+                  onClick={() => dispatch(Actions.saveNewsApiContent(form))}
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  className={classes.button}
+                  startIcon={<SaveIcon />}
+                >
+                  Save
+                </Button>
                <div dangerouslySetInnerHTML={{__html:editorHtml}}/>
             </form>
           )}

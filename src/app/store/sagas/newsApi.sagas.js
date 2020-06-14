@@ -49,11 +49,22 @@ function* setNewsApiContents( {payload} ){
 };
 function* setNewsApiContent({payload}){
   try{
+    yield put({
+               type:"NEWSAPI_CONTENT_SUCCESS",
+               payload
+              })
+  }catch(e){
+
+  }
+};
+
+function* saveNewsApiContent({payload}){
+  try{
     database.ref(payload.category).push({
       ...payload
     });
     yield put({
-               type:"NEWSAPI_CONTENT_SUCCESS",
+               type:"SAVE_NEWSAPI_CONTENT_SUCCESS",
                payload
               })
   }catch(e){
@@ -64,4 +75,5 @@ function* setNewsApiContent({payload}){
 export const newsApiSagas = [
   takeLatest('SET_NEWSAPI_CONTENTS', setNewsApiContents),
   takeLatest('SET_NEWSAPI_CONTENT', setNewsApiContent),
+  takeLatest('SAVE_NEWSAPI_CONTENT', saveNewsApiContent),
 ]
