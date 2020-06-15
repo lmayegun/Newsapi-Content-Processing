@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
-import {TextField, Button} from '@material-ui/core';
+import {TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import {makeStyles} from '@material-ui/styles';
@@ -14,9 +14,18 @@ import * as Actions from 'app/store/actions/newsApi';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    display: 'flex',
     '& > *': {
       margin: theme.spacing(1),
+      width: 100+'%',
     },
+  },
+  reactQuill:{
+    minHeight: 500
+  },
+  selector:{
+    marginBottom: theme.spacing(2),
+    width: 99+'%',
   },
 }));
 
@@ -41,7 +50,8 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
   const article = useSelector( state => state.newsApi.content );
 
   // const [theme, setTheme] = useState();
-  const [editorHtml, setEditorHtml] = useState("");
+  const [editorHtmlDescr, setEditorHtmlDescr] = useState("");
+  const [editorHtmlContent, setEditorHtmlContent] = useState("");
   const {form, handleChange, setForm} = useForm();
 
   useEffect(()=>{
@@ -56,13 +66,19 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
 
   useEffect(()=>{
     if(article){
-      setEditorHtml(article.description);
+      setEditorHtmlDescr(article.description);
+      setEditorHtmlContent(article.content);
     }
   },[article]);
 
-  function handleEditorHtml (content, delta, html, editor){
-    setEditorHtml(content);
+  function handleEditorHtmlDescr (content, delta, html, editor){
+    setEditorHtmlDescr(content);
     setForm(_.set({...form}, "description", content ));
+  }
+
+  function handleEditorHtmlContent (content, delta, html, editor){
+    setEditorHtmlContent(content);
+    setForm(_.set({...form}, "content", content ));
   }
 
   return(
@@ -70,56 +86,113 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
       header={<h1> Save Content </h1>}
       content={
         <div>
-
           {form && (
             <form className={classes.root} noValidate autoComplete="off">
-              <TextField
-                id="outlined-basic"
-                label="Title"
-                variant="outlined"
-                name="title"
-                onChange={handleChange}
-                defaultValue={form.title}
-              />
-              <ReactQuill
-                theme={'snow'}
-                onChange={handleEditorHtml}
-                value={editorHtml}
-                modules={{
-                  toolbar: [
-                    [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
-                    [{size: []}],
-                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                    [{'list': 'ordered'}, {'list': 'bullet'},
-                     {'indent': '-1'}, {'indent': '+1'}],
-                    ['link', 'image', 'video'],
-                    ['clean']
-                  ],
-                  clipboard: {
-                    // toggle to add extra line breaks when pasting HTML:
-                    matchVisual: false,
-                  }
-                }}
-                formats={[
-                  'header', 'font', 'size',
-                  'bold', 'italic', 'underline', 'strike', 'blockquote',
-                  'list', 'bullet', 'indent',
-                  'link', 'image', 'video'
-                ]}
-                bounds={'.app'}
-                placeholder={'placeholder'}
-               />
-               <Button
-                  onClick={() => dispatch(Actions.saveNewsApiContent(form))}
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  className={classes.button}
-                  startIcon={<SaveIcon />}
-                >
-                  Save
-                </Button>
-               <div dangerouslySetInnerHTML={{__html:editorHtml}}/>
+              <div style={{flex:3}}>
+                <TextField
+                  id="outlined-basic"
+                  label="Title"
+                  variant="outlined"
+                  name="title"
+                  onChange={handleChange}
+                  defaultValue={form.title}
+                />
+                <h3> Description </h3>
+                <ReactQuill
+                  theme={'snow'}
+                  onChange={handleEditorHtmlDescr}
+                  value={editorHtmlDescr}
+                  modules={{
+                    toolbar: [
+                      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+                      [{size: []}],
+                      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                      [{'list': 'ordered'}, {'list': 'bullet'},
+                       {'indent': '-1'}, {'indent': '+1'}],
+                      ['link', 'image', 'video'],
+                      ['clean']
+                    ],
+                    clipboard: {
+                      // toggle to add extra line breaks when pasting HTML:
+                      matchVisual: false,
+                    }
+                  }}
+                  formats={[
+                    'header', 'font', 'size',
+                    'bold', 'italic', 'underline', 'strike', 'blockquote',
+                    'list', 'bullet', 'indent',
+                    'link', 'image', 'video'
+                  ]}
+                  bounds={'.app'}
+                  placeholder={'placeholder'}
+                  style={{height:100, marginBottom:60}}
+                 />
+                 <h3> Body </h3>
+                 <ReactQuill
+                   theme={'snow'}
+                   onChange={handleEditorHtmlContent}
+                   value={editorHtmlContent}
+                   modules={{
+                     toolbar: [
+                       [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+                       [{size: []}],
+                       ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                       [{'list': 'ordered'}, {'list': 'bullet'},
+                        {'indent': '-1'}, {'indent': '+1'}],
+                       ['link', 'image', 'video'],
+                       ['clean']
+                     ],
+                     clipboard: {
+                       // toggle to add extra line breaks when pasting HTML:
+                       matchVisual: false,
+                     }
+                   }}
+                   formats={[
+                     'header', 'font', 'size',
+                     'bold', 'italic', 'underline', 'strike', 'blockquote',
+                     'list', 'bullet', 'indent',
+                     'link', 'image', 'video'
+                   ]}
+                   bounds={'.app'}
+                   placeholder={'placeholder'}
+                   style={{height:200, marginBottom:60}}
+                  />
+                 <Button
+                    onClick={() => dispatch(Actions.saveNewsApiContent(form))}
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    className={classes.button}
+                    startIcon={<SaveIcon />}
+                  >
+                    Save
+                  </Button>
+                 <div dangerouslySetInnerHTML={{__html:editorHtmlDescr}}/>
+              </div>
+              <div style={{flex:1}}>
+                <div className={"selector"}>
+                  <FormControl className={classes.selector}>
+                    <InputLabel id="demo-customized-select-label">Category</InputLabel>
+                    <Select
+                      labelId="demo-customized-select-label"
+                      id="demo-customized-select"
+                      value={form.category}
+                      name={"category"}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={'business'}>Business</MenuItem>
+                      <MenuItem value={'health'}>Health</MenuItem>
+                      <MenuItem value={'sports'}>Sports</MenuItem>
+                      <MenuItem value={'entertainment'}>Entertainment</MenuItem>
+                      <MenuItem value={'knowledge'}>Knowledge</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+                <a href={article.url} target="_blank"> {article.title} </a>
+              </div>
             </form>
           )}
           </div>
