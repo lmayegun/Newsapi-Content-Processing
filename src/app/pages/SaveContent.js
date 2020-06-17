@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
 import {TextField, Button, FormControl, InputLabel, Select, MenuItem} from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
 import {makeStyles} from '@material-ui/styles';
 import {useSelector, useDispatch} from 'react-redux';
@@ -88,7 +87,7 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
         <div>
           {form && (
             <form className={classes.root} noValidate autoComplete="off">
-              <div style={{flex:3}}>
+              <div style={{flex:4}}>
                 <TextField
                   id="outlined-basic"
                   label="Title"
@@ -97,6 +96,27 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
                   onChange={handleChange}
                   defaultValue={form.title}
                 />
+                <div className={"selector"}>
+                  <FormControl className={classes.selector}>
+                    <InputLabel id="demo-customized-select-label">Category</InputLabel>
+                    <Select
+                      labelId="demo-customized-select-label"
+                      id="demo-customized-select"
+                      value={form.category}
+                      name={"category"}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={'business'}>Business</MenuItem>
+                      <MenuItem value={'health'}>Health</MenuItem>
+                      <MenuItem value={'sports'}>Sports</MenuItem>
+                      <MenuItem value={'entertainment'}>Entertainment</MenuItem>
+                      <MenuItem value={'knowledge'}>Knowledge</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
                 <h3> Description </h3>
                 <ReactQuill
                   theme={'snow'}
@@ -167,31 +187,12 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
                   >
                     Save
                   </Button>
-                 <div dangerouslySetInnerHTML={{__html:editorHtmlDescr}}/>
               </div>
-              <div style={{flex:1}}>
-                <div className={"selector"}>
-                  <FormControl className={classes.selector}>
-                    <InputLabel id="demo-customized-select-label">Category</InputLabel>
-                    <Select
-                      labelId="demo-customized-select-label"
-                      id="demo-customized-select"
-                      value={form.category}
-                      name={"category"}
-                      onChange={handleChange}
-                    >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
-                      <MenuItem value={'business'}>Business</MenuItem>
-                      <MenuItem value={'health'}>Health</MenuItem>
-                      <MenuItem value={'sports'}>Sports</MenuItem>
-                      <MenuItem value={'entertainment'}>Entertainment</MenuItem>
-                      <MenuItem value={'knowledge'}>Knowledge</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <a href={article.url} target="_blank"> {article.title} </a>
+              <div style={{flex:3}}>
+                <a href={article.url} target="_blank" rel="noopener noreferrer"> {article.title} </a>
+                <div> {form.title} </div>
+                <div dangerouslySetInnerHTML={{__html:editorHtmlDescr}}/>
+                <div dangerouslySetInnerHTML={{__html:editorHtmlContent}}/>
               </div>
             </form>
           )}
