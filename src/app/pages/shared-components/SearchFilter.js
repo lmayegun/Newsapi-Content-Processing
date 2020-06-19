@@ -65,7 +65,7 @@ const SearchFilter = ()=>{
 
   useEffect(()=>{
     dispatch(Actions.setNewsApiContents({query:form.query, country:form.country, category:form.category}))
-  },[dispatch, form])
+  },[dispatch])
 
   function handleSubmit(){
     dispatch(Actions.setNewsApiContents({query:form.query, country:form.country, category:form.category}))

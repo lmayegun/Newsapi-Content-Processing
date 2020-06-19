@@ -21,7 +21,6 @@ function* setNewsApiContents( {payload} ){
                                 return _.assignIn(item, {category}, {country});
                               });
 
-                              console.log(check, "check")
                               return response.data.articles.map((item)=>{
                                 return _.assignIn(item, {category}, {country});
                               });
@@ -32,8 +31,7 @@ function* setNewsApiContents( {payload} ){
                               const check = response.data.articles.map((item)=>{
                                 return _.assignIn(item, {category}, {country});
                               });
-
-                              console.log(check, "check")
+                              
                               return response.data.articles.map((item)=>{
                                 return _.assignIn(item, {category}, {country});
                               });

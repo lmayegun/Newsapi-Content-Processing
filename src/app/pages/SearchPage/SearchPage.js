@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
 
 import {PageLayout} from '@newsApi/components';
-import SearchPageHeader from './SearchPageHeader';
+import SearchHeader from './SearchHeader';
 import SearchResults from './SearchResults';
 
 const SearchPage = () => {
@@ -17,11 +17,11 @@ const SearchPage = () => {
   return(
     <div>
       <PageLayout
-        header={
-          <SearchPageHeader />
-        }
         content={
-          <SearchResults articles={articles}/>
+          <div>
+            <SearchHeader />
+            <SearchResults articles={articles}/>
+          </div>
         }
       />
     </div>

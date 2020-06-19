@@ -37,7 +37,7 @@ const styles = makeStyles( theme => (
   })
 );
 
-const SearchPageHeader = ()=>{
+const SearchHeader = ()=>{
   const classes = styles();
 
   return(
@@ -57,4 +57,4 @@ const SearchPageHeader = ()=>{
   );
 };
 
-export default SearchPageHeader;
+export default SearchHeader;
