@@ -16,19 +16,4 @@ const SearcResults = ({articles}) => {
   );
 };
 
-// articles.map((item, index)=>{
-//   return(
-//     <div key={index}>
-//       <Link
-//         to={{
-//           pathname:'/save',
-//           article: item
-//         }}
-//       >
-//         <h5> {item.title} </h5>
-//       </Link>
-//     </div>
-//   );
-// })
-
 export default SearcResults;

@@ -10,8 +10,10 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
 const headCells = [
-  { id: 'title', numeric: false, disablePadding: true, label: 'Title' },
-  { id: 'publishedAt', numeric: true, disablePadding: false, label: 'Published On' },
+  { id: 'title', numeric: false, disablePadding: true, label: 'Title', sort: true },
+  { id: 'publishedAt', numeric: true, disablePadding: false, label: 'Published On', sort: true },
+  { id: 'source', numeric: true, disablePadding: false, label: 'Source', sort: false },
+  { id: 'actions', numeric: true, disablePadding: false, label: 'Actions', sort: false },
 ];
 
 export default function EnhancedTableHead(props) {
@@ -38,6 +40,7 @@ export default function EnhancedTableHead(props) {
             padding={headCell.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
+          {headCell.sort && (
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
@@ -50,6 +53,10 @@ export default function EnhancedTableHead(props) {
                 </span>
               ) : null}
             </TableSortLabel>
+          )}
+
+          {!headCell.sort && ( headCell.label )}
+
           </TableCell>
         ))}
       </TableRow>

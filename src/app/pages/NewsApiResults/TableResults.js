@@ -177,7 +177,8 @@ export default function TableResults(props) {
                         {row.title}
                       </TableCell>
                       <TableCell align="right">{row.publishedAt}</TableCell>
-                      <TableCell align="center">
+                      <TableCell align="right">{row.source.name}</TableCell>
+                      <TableCell align="right">
                         <Link to={{pathname:'/save', article: row }}>
                           <Button variant="contained" color="primary">
                              Process

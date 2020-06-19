@@ -19,8 +19,7 @@ const ResourcesButton = (props)=>{
   const [selectedIndex, setSelectedIndex] = useState(1);
 
   const handleClick = () => {
-    alert(options[selectedIndex])
-    props.history.push('/firebase')
+    props.history.push(options[selectedIndex])
     console.log(props)
     console.info(`You clicked ${options[selectedIndex]}`);
   };

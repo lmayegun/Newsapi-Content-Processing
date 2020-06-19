@@ -8,6 +8,7 @@ import history from '@history';
 import AppContext from './AppContext';
 import {defaultMuiTheme} from './configs/themeConfig';
 import {SwitchRoute} from './route-system';
+import SearchHeader from 'app/pages/shared-components/SearchHeader';
 // import logo from './logo.svg';
 import '../styles/App.css';
 
@@ -17,6 +18,7 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={defaultMuiTheme()}>
           <Router history={history}>
+            <SearchHeader />
             <SwitchRoute />
           </Router>
         </ThemeProvider>

@@ -2,19 +2,28 @@ import React from "react";
 import {
   Switch,
   Route,
+  Redirect
 } from "react-router-dom";
 
-import { SearchPage, SaveContent } from 'app/pages';
+import {
+         FirebaseResults,
+         NewsApiResults,
+         SaveContent,
+        } from 'app/pages';
 
 export default function BasicRoute() {
   return (
-    <Switch>
-      <Route exact path="/">
-        <SearchPage />
+    <div>
+      <Route exact path="/newsapi">
+        <NewsApiResults />
+      </Route>
+      <Route exact path="/firebase">
+        <FirebaseResults />
       </Route>
       <Route path="/save">
         <SaveContent />
       </Route>
-    </Switch>
+      <Redirect from="/" to="firebase" />
+    </div>
   );
 }

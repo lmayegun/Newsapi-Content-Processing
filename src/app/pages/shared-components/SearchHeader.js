@@ -1,5 +1,6 @@
 import React from 'react';
 import {makeStyles, Paper} from '@material-ui/core';
+import {withRouter} from 'react-router-dom';
 
 import ResourcesButton from 'app/pages/shared-components/ResourcesButtons';
 import SearchFilter from 'app/pages/shared-components/SearchFilter';
@@ -37,7 +38,9 @@ const styles = makeStyles( theme => (
   })
 );
 
-const SearchHeader = ()=>{
+const SearchHeader = (props)=>{
+  console.log(props.location.pathname, "late");
+  const pathname = props.location.pathname;
   const classes = styles();
 
   return(
@@ -45,16 +48,19 @@ const SearchHeader = ()=>{
       <div className={classes.resourcesWrapper}>
         <ResourcesButton />
       </div>
+      { pathname != '/save' && (
+        <React.Fragment>
+          <div className={classes.searchFilterWrapper}>
+            <SearchFilter />
+          </div>
 
-      <div className={classes.searchFilterWrapper}>
-        <SearchFilter />
-      </div>
-
-      <div className={classes.newContent}>
-        dd new content
-      </div>
+          <div className={classes.newContent}>
+            dd new content
+          </div>
+        </React.Fragment>
+      )}
     </Paper>
   );
 };
 
-export default SearchHeader;
+export default withRouter(SearchHeader);
