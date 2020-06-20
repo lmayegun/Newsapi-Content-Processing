@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
-import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TableResults(props) {
+const TableResults = (props) => {
   // const {rows} = props;
   const classes = useStyles();
 
@@ -142,6 +142,13 @@ export default function TableResults(props) {
     setPage(0);
   };
 
+  const handleProcessContent = (event, row) => {
+    props.history.push({
+        pathname:'/save',
+        article: row
+      })
+  }
+
   const isSelected = (title) => selected.indexOf(title) !== -1;
 
   return (
@@ -192,11 +199,14 @@ export default function TableResults(props) {
                       <TableCell align="right">{row.publishedAt}</TableCell>
                       <TableCell align="right">{row.source.name}</TableCell>
                       <TableCell align="right">
-                        <Link to={{pathname:'/save', article: row }}>
-                          <Button variant="contained" color="primary">
-                             Process
-                          </Button>
-                        </Link>
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          onClick={(event) => handleProcessContent(event, row)}
+                          style={{marginRight: 10}}
+                        >
+                          Process
+                        </Button>
                       </TableCell>
                     </TableRow>
                   );
@@ -217,3 +227,5 @@ export default function TableResults(props) {
     </div>
   );
 }
+
+export default withRouter(TableResults);

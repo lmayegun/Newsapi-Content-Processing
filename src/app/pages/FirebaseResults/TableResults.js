@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
-import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -25,11 +25,10 @@ import {useSelector} from 'react-redux';
 import EnhancedTableHead from './TableHeadResult';
 import TableToolbarEnhanced from './TableToolbarEnhanced';
 
-export default function TableResults(props) {
-  // const {rows} = props;
+const TableResults = (props) => {
   const classes = useStyles();
 
-  const articlesSelector  = useSelector( state => state.newsApi.contents );
+  const articlesSelector  = useSelector( state => state.firebase.contents );
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
@@ -91,6 +90,13 @@ export default function TableResults(props) {
     setPage(0);
   };
 
+  const handleEditContent = (event, row) => {
+    props.history.push({
+        pathname:'/save',
+        article: row
+      })
+  }
+
   const isSelected = (title) => selected.indexOf(title) !== -1;
 
   return (
@@ -141,11 +147,22 @@ export default function TableResults(props) {
                       <TableCell align="right">{row.publishedAt}</TableCell>
                       <TableCell align="right">{row.source.name}</TableCell>
                       <TableCell align="right">
-                        <Link to={{pathname:'/save', article: row }}>
-                          <Button variant="contained" color="primary">
-                             Process
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={(event) => handleEditContent(event, row)}
+                            style={{marginRight: 10}}
+                          >
+                            Edit
                           </Button>
-                        </Link>
+                          <Button
+                            variant="contained"
+                            color="danger"
+                            onClick={(event) => handleEditContent(event, row)}
+                          >
+                            Delete
+                          </Button>
+
                       </TableCell>
                     </TableRow>
                   );
@@ -216,3 +233,5 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
 }));
+
+export default withRouter(TableResults);

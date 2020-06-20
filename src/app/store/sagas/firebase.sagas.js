@@ -2,9 +2,11 @@ import {put, takeLatest} from 'redux-saga/effects';
 import _ from '@lodash';
 import database from '../../../firebase/firebase';
 
-function* getFirebaseContents(payload){
+function* getFirebaseContents({payload}){
+  const {category} = payload;
+
   try{
-    const request = yield database.ref('health')
+    const request = yield database.ref(`${category}`)
                             .once('value')
                             .then(function(snapshot) {
                               const articles = []
@@ -14,7 +16,7 @@ function* getFirebaseContents(payload){
                                     ...child.val()
                                   })
                               })
-                              return _.slice(_.reverse(articles), 0, 10);
+                              return _.reverse(articles);
                             });
     yield put({type:"GET_FIREBASE_CONTENTS_SUCCESS",payload:request});
   }catch(e){

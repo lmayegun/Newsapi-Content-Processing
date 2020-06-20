@@ -22,8 +22,13 @@ const useStyles = makeStyles((theme) => ({
   reactQuill:{
     minHeight: 500
   },
+  field:{
+    margin: theme.spacing(3, 1, 1, 0),
+    width: 100+'%',
+    display: 'inline-block',
+  },
   selector:{
-    marginBottom: theme.spacing(2),
+    margin: theme.spacing(3, 1, 1, 0),
     width: 99+'%',
   },
 }));
@@ -42,8 +47,9 @@ const sampleArticle = {
   urlToImage: "https://image-cdn.essentiallysports.com/wp-content/uploads/20200212020935/Tyson-Fury-With-mic.jpg"
 }
 
-const SaveContent = ({location, placeholder, modules, formats})=>{
+const SaveContent = (props)=>{
 
+  const {location, placeholder, modules, formats} = props;
   const classes = useStyles();
   const dispatch = useDispatch();
   const article = useSelector( state => state.newsApi.content );
@@ -88,15 +94,19 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
           {form && (
             <form className={classes.root} noValidate autoComplete="off">
               <div style={{flex:4}}>
-                <TextField
-                  id="outlined-basic"
-                  label="Title"
-                  variant="outlined"
-                  name="title"
-                  onChange={handleChange}
-                  defaultValue={form.title}
-                />
-                <div className={"selector"}>
+                <div className={classes.field}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Title"
+                    variant="outlined"
+                    name="title"
+                    onChange={handleChange}
+                    defaultValue={form.title}
+                    style={{width:100+'%'}}
+                  />
+                </div>
+
+                <div className={classes.field}>
                   <FormControl className={classes.selector}>
                     <InputLabel id="demo-customized-select-label">Category</InputLabel>
                     <Select
@@ -117,36 +127,41 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
                     </Select>
                   </FormControl>
                 </div>
-                <h3> Description </h3>
-                <ReactQuill
-                  theme={'snow'}
-                  onChange={handleEditorHtmlDescr}
-                  value={editorHtmlDescr}
-                  modules={{
-                    toolbar: [
-                      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
-                      [{size: []}],
-                      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                      [{'list': 'ordered'}, {'list': 'bullet'},
-                       {'indent': '-1'}, {'indent': '+1'}],
-                      ['link', 'image', 'video'],
-                      ['clean']
-                    ],
-                    clipboard: {
-                      // toggle to add extra line breaks when pasting HTML:
-                      matchVisual: false,
-                    }
-                  }}
-                  formats={[
-                    'header', 'font', 'size',
-                    'bold', 'italic', 'underline', 'strike', 'blockquote',
-                    'list', 'bullet', 'indent',
-                    'link', 'image', 'video'
-                  ]}
-                  bounds={'.app'}
-                  placeholder={'placeholder'}
-                  style={{height:100, marginBottom:60}}
-                 />
+
+                <div className={classes.field}>
+                  <h3> Description </h3>
+                  <ReactQuill
+                    theme={'snow'}
+                    onChange={handleEditorHtmlDescr}
+                    value={editorHtmlDescr}
+                    modules={{
+                      toolbar: [
+                        [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+                        [{size: []}],
+                        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                        [{'list': 'ordered'}, {'list': 'bullet'},
+                         {'indent': '-1'}, {'indent': '+1'}],
+                        ['link', 'image', 'video'],
+                        ['clean']
+                      ],
+                      clipboard: {
+                        // toggle to add extra line breaks when pasting HTML:
+                        matchVisual: false,
+                      }
+                    }}
+                    formats={[
+                      'header', 'font', 'size',
+                      'bold', 'italic', 'underline', 'strike', 'blockquote',
+                      'list', 'bullet', 'indent',
+                      'link', 'image', 'video'
+                    ]}
+                    bounds={'.app'}
+                    placeholder={'placeholder'}
+                    style={{height:100}}
+                   />
+                </div>
+
+                <div className={classes.field}>
                  <h3> Body </h3>
                  <ReactQuill
                    theme={'snow'}
@@ -175,18 +190,22 @@ const SaveContent = ({location, placeholder, modules, formats})=>{
                    ]}
                    bounds={'.app'}
                    placeholder={'placeholder'}
-                   style={{height:200, marginBottom:60}}
+                   style={{height:500, marginBottom:60}}
                   />
-                 <Button
-                    onClick={() => dispatch(Actions.saveNewsApiContent(form))}
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    className={classes.button}
-                    startIcon={<SaveIcon />}
-                  >
-                    Save
-                  </Button>
+                </div>
+
+                <div className={classes.field}>
+                   <Button
+                      onClick={() => dispatch(Actions.saveNewsApiContent(form))}
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      className={classes.button}
+                      startIcon={<SaveIcon />}
+                    >
+                      Save
+                    </Button>
+                </div>
               </div>
               <div style={{flex:3}}>
                 <a href={article.url} target="_blank" rel="noopener noreferrer"> {article.title} </a>
