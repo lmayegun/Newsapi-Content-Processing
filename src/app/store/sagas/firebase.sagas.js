@@ -16,7 +16,7 @@ function* getFirebaseContents(payload){
                               })
                               return _.slice(_.reverse(articles), 0, 10);
                             });
-    console.log(request);
+    yield put({type:"GET_FIREBASE_CONTENTS_SUCCESS",payload:request});
   }catch(e){
 
   }
