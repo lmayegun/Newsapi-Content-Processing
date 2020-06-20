@@ -2,8 +2,8 @@ import React from 'react';
 import {makeStyles, Paper} from '@material-ui/core';
 import {withRouter} from 'react-router-dom';
 
-import ResourcesButton from 'app/pages/shared-components/ResourcesButtons';
-import SearchFilter from 'app/pages/shared-components/SearchFilter';
+import ResourcesButton from './ResourcesButtons';
+import SearchFilter from './SearchFilter';
 
 const styles = makeStyles( theme => (
   {

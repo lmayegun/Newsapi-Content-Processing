@@ -22,8 +22,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import {useSelector} from 'react-redux';
 
-import EnhancedTableHead from './TableHeadResult';
-import TableToolbarEnhanced from './TableToolbarEnhanced';
+import EnhancedTableHead from 'app/pages/shared-components/TableHeadResult';
+import TableToolbarEnhanced from 'app/pages/shared-components/TableToolbarEnhanced';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -203,9 +203,8 @@ const TableResults = (props) => {
                           variant="contained"
                           color="primary"
                           onClick={(event) => handleProcessContent(event, row)}
-                          style={{marginRight: 10}}
                         >
-                          Process
+                          Create
                         </Button>
                       </TableCell>
                     </TableRow>

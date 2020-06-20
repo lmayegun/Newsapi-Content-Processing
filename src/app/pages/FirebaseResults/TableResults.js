@@ -22,8 +22,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import {useSelector} from 'react-redux';
 
-import EnhancedTableHead from './TableHeadResult';
-import TableToolbarEnhanced from './TableToolbarEnhanced';
+import EnhancedTableHead from 'app/pages/shared-components/TableHeadResult';
+import TableToolbarEnhanced from 'app/pages/shared-components/TableToolbarEnhanced';
 
 const TableResults = (props) => {
   const classes = useStyles();
