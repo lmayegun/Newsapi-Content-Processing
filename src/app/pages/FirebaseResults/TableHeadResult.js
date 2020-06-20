@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 const headCells = [
   { id: 'title', numeric: false, disablePadding: true, label: 'Title', sort: true },
   { id: 'publishedAt', numeric: true, disablePadding: false, label: 'Published On', sort: true },
+  { id: 'source', numeric: true, disablePadding: false, label: 'Source', sort: false },
   { id: 'actions', numeric: true, disablePadding: false, label: 'Actions', sort: false },
 ];
 

@@ -12,7 +12,8 @@ import SendIcon from '@material-ui/icons/Send';
 import {useDispatch} from 'react-redux';
 import {useForm} from '@newsApi/hooks';
 
-import * as Actions from 'app/store/actions/newsApi';
+import * as NewsApiActions from 'app/store/actions/newsApi';
+import * as FirebaseActions from 'app/store/actions/firebase';
 
 const initFormState = {
   query: "",
@@ -64,11 +65,12 @@ const SearchFilter = ()=>{
   const {form, handleChange, setForm} = useForm(initFormState);
 
   useEffect(()=>{
-    dispatch(Actions.setNewsApiContents({query:form.query, country:form.country, category:form.category}))
+    dispatch(NewsApiActions.setNewsApiContents({query:form.query, country:form.country, category:form.category}))
+    dispatch(FirebaseActions.getFirebaseContents({query:form.query, country:form.country, category:form.category}))
   },[dispatch])
 
   function handleSubmit(){
-    dispatch(Actions.setNewsApiContents({query:form.query, country:form.country, category:form.category}))
+    dispatch(NewsApiActions.setNewsApiContents({query:form.query, country:form.country, category:form.category}))
   }
 
   return(

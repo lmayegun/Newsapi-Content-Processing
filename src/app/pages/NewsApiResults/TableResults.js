@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -20,6 +20,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import {useSelector} from 'react-redux';
 
 import EnhancedTableHead from './TableHeadResult';
 import TableToolbarEnhanced from './TableToolbarEnhanced';
@@ -76,14 +77,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TableResults(props) {
-  const {rows} = props;
+  // const {rows} = props;
   const classes = useStyles();
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const articlesSelector  = useSelector( state => state.newsApi.contents );
+
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('calories');
+  const [selected, setSelected] = useState([]);
+  const [page, setPage] = useState(0);
+  const [dense, setDense] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rows, setRows]   = useState(articlesSelector);
+
+  useEffect(()=>{
+    setRows(articlesSelector);
+  },[articlesSelector]);
+
+  if(!rows){
+    return <h1> Rows is empty </h1>
+  }
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
