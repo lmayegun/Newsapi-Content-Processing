@@ -170,6 +170,12 @@ const TableResults = (props) => {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              headCells={[
+                { id: 'title', numeric: false, disablePadding: true, label: 'Title', sort: true },
+                { id: 'publishedAt', numeric: true, disablePadding: false, label: 'Published On', sort: true },
+                { id: 'source', numeric: true, disablePadding: false, label: 'Source', sort: false },
+                { id: 'actions', numeric: true, disablePadding: false, label: 'Actions', sort: false },
+              ]}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
