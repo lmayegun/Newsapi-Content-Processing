@@ -14,16 +14,22 @@ import {
 export default function BasicRoute() {
   return (
     <div>
-      <Route exact path="/newsapi">
-        <NewsApiResults />
-      </Route>
-      <Route exact path="/firebase">
-        <FirebaseResults />
-      </Route>
-      <Route path="/save">
-        <SaveContent />
-      </Route>
-      <Redirect from="/" to="firebase" />
+      <Switch>
+        <Route exact path="/newsapi">
+          <NewsApiResults />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route exact path="/firebase">
+          <FirebaseResults />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/save">
+          <SaveContent />
+        </Route>
+      </Switch>
+      <Redirect from="/" to="/newsapi" />
     </div>
   );
 }

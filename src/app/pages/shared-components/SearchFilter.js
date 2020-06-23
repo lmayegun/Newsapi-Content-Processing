@@ -4,12 +4,15 @@ import SendIcon from '@material-ui/icons/Send';
 import {useDispatch} from 'react-redux';
 import {useForm} from '@newsApi/hooks';
 import {Select} from '@newsApi/components/FormElements';
+import {withRouter} from 'react-router-dom';
 
+import AppUtils from '@newsApi/AppUtils';
 import * as NewsApiActions from 'app/store/actions/newsApi';
 import * as FirebaseActions from 'app/store/actions/firebase';
 
-const SearchFilter = (props)=>{
-
+const SearchFilter = props =>{
+  const location = AppUtils.getLocation(props);
+  console.log(props)
   const classes = styles();
   const dispatch = useDispatch();
   const {form, handleChange, setForm} = useForm({query: "", country: "us", category: "business"});
@@ -74,7 +77,7 @@ const SearchFilter = (props)=>{
   );
 };
 
-export default SearchFilter;
+export default withRouter(SearchFilter);
 
 const styles = makeStyles( theme => (
   {
