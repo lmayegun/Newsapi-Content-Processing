@@ -12,7 +12,7 @@ import * as FirebaseActions from 'app/store/actions/firebase';
 
 const SearchFilter = props =>{
   const location = AppUtils.getLocation(props);
-  console.log(props)
+  console.log(location)
   const classes = styles();
   const dispatch = useDispatch();
   const {form, handleChange, setForm} = useForm({query: "", country: "us", category: "business"});
@@ -31,6 +31,9 @@ const SearchFilter = props =>{
       <form onSubmit={(e)=>{
         e.preventDefault();
       }}>
+        {location.includes("firebase") && (
+          <div> Grey </div>
+        )}
         <div className={classes.search}>
           <TextField
             className={classes.textField}
