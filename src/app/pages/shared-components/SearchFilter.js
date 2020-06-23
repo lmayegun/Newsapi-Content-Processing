@@ -8,24 +8,19 @@ import {Select} from '@newsApi/components/FormElements';
 import * as NewsApiActions from 'app/store/actions/newsApi';
 import * as FirebaseActions from 'app/store/actions/firebase';
 
-const initFormState = {
-  query: "",
-  country: "us",
-  category: "business"
-}
+const SearchFilter = (props)=>{
 
-const SearchFilter = ()=>{
   const classes = styles();
   const dispatch = useDispatch();
-  const {form, handleChange, setForm} = useForm(initFormState);
+  const {form, handleChange, setForm} = useForm({query: "", country: "us", category: "business"});
 
   useEffect(()=>{
-    dispatch(NewsApiActions.setNewsApiContents({query:form.query, country:form.country, category:form.category}))
-    dispatch(FirebaseActions.getFirebaseContents({query:form.query, country:form.country, category:form.category}))
+    dispatch(NewsApiActions.setNewsApiContents(form))
+    dispatch(FirebaseActions.getFirebaseContents(form))
   },[dispatch])
 
   function handleSubmit(){
-    dispatch(NewsApiActions.setNewsApiContents({query:form.query, country:form.country, category:form.category}))
+    dispatch(NewsApiActions.setNewsApiContents(form))
   }
 
   return(
