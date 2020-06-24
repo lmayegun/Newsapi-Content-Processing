@@ -7,7 +7,7 @@ import {
 import {
          FirebaseResults,
          NewsApiResults,
-         SaveContent,
+         EditContent,
         } from 'app/pages';
 
 export default function BasicRoute() {
@@ -15,7 +15,7 @@ export default function BasicRoute() {
     <>
       <Switch>
         <Route exact path="/">
-          <NewsApiResults />
+          <EditContent />
         </Route>
       </Switch>
       <Switch>
@@ -30,7 +30,7 @@ export default function BasicRoute() {
       </Switch>
       <Switch>
         <Route path="/save">
-          <SaveContent />
+          <EditContent />
         </Route>
       </Switch>
     </>

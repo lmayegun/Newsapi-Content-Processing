@@ -1,10 +1,9 @@
 import React from 'react';
 
 const Logo = props =>{
-  const {logo} = props;
   return(
     <div>
-      {`${logo}`}
+      <img alt="logo" src="logo512.png" width="50px"/>
     </div>
   );
 };

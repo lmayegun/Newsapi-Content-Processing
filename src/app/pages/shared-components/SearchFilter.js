@@ -15,8 +15,8 @@ const SearchFilter = props =>{
   const {form, handleChange, setForm} = useForm({query: "", country: "us", category: "business"});
 
   useEffect(()=>{
-
-  },[dispatch]);
+    dispatch(FirebaseActions.getFirebaseContents(form));
+  },[dispatch, form]);
 
   useEffect(()=>{
     setForm(form)
