@@ -1,5 +1,5 @@
 export default class AppUtils{
-  
+
   static getLocation( props ){
     if(!props) return "/";
     const {location} = props;
@@ -11,6 +11,17 @@ export default class AppUtils{
       ? (a, b) => descendingComparator(a, b, orderBy)
       : (a, b) => -descendingComparator(a, b, orderBy);
   }
+
+  static stableSort(array, comparator) {
+    const stabilizedThis = array.map((el, index) => [el, index]);
+    stabilizedThis.sort((a, b) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) return order;
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map((el) => el[0]);
+  }
+
 }
 
 function descendingComparator(a, b, orderBy) {

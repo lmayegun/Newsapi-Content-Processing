@@ -1,21 +1,8 @@
 import React from 'react';
-import {makeStyles, MenuItem, Select, InputLabel,FormControl} from '@material-ui/core';
+import {MenuItem, Select, InputLabel,FormControl} from '@material-ui/core';
 
 const AppSelect = props => {
   const {handleChange, value, name, options, className} = props;
-  const styles = makeStyles( theme => ({
-      selector:{
-        marginBottom: theme.spacing(2),
-        width: 99+'%',
-      },
-    })
-  );
-
-  if(!options){
-    return null
-  }
-
-  const classes = styles();
 
   return(
     <div className={className}>
@@ -29,7 +16,7 @@ const AppSelect = props => {
         {
           options.map((key, index)=>{
             return(
-              <MenuItem value={Object.keys(key)[0]}>{Object.values(key)[0]}</MenuItem>
+              <MenuItem value={Object.keys(key)[0]} key={index}>{Object.values(key)[0]}</MenuItem>
             )
           })
         }

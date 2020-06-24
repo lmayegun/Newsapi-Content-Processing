@@ -2,38 +2,37 @@ import React, {useEffect} from 'react';
 import {makeStyles, Paper, Button, TextField} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import {useDispatch} from 'react-redux';
+
 import {useForm} from '@newsApi/hooks';
 import {Select} from '@newsApi/components/FormElements';
 import {withRouter} from 'react-router-dom';
-
-import AppUtils from '@newsApi/AppUtils';
 import * as NewsApiActions from 'app/store/actions/newsApi';
 import * as FirebaseActions from 'app/store/actions/firebase';
 
 const SearchFilter = props =>{
-  const location = AppUtils.getLocation(props);
-  console.log(location)
   const classes = styles();
   const dispatch = useDispatch();
   const {form, handleChange, setForm} = useForm({query: "", country: "us", category: "business"});
 
   useEffect(()=>{
-    dispatch(NewsApiActions.setNewsApiContents(form))
-    dispatch(FirebaseActions.getFirebaseContents(form))
-  },[dispatch])
+
+  },[dispatch]);
+
+  useEffect(()=>{
+    setForm(form)
+  },[form, setForm])
 
   function handleSubmit(){
-    dispatch(NewsApiActions.setNewsApiContents(form))
-  }
+    dispatch(NewsApiActions.setNewsApiContents(form));
+    dispatch(FirebaseActions.getFirebaseContents(form));
+  };
 
   return(
     <Paper className={classes.searchFilter} elevation={1}>
       <form onSubmit={(e)=>{
         e.preventDefault();
+        handleSubmit()
       }}>
-        {location.includes("firebase") && (
-          <div> Grey </div>
-        )}
         <div className={classes.search}>
           <TextField
             className={classes.textField}

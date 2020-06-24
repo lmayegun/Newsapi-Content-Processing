@@ -1,8 +1,7 @@
 import React from "react";
 import {
   Switch,
-  Route,
-  Redirect
+  Route
 } from "react-router-dom";
 
 import {
@@ -13,9 +12,14 @@ import {
 
 export default function BasicRoute() {
   return (
-    <div>
+    <>
       <Switch>
-        <Route exact path="/newsapi">
+        <Route exact path="/">
+          <NewsApiResults />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/newsapi">
           <NewsApiResults />
         </Route>
       </Switch>
@@ -29,7 +33,6 @@ export default function BasicRoute() {
           <SaveContent />
         </Route>
       </Switch>
-      <Redirect from="/" to="/newsapi" />
-    </div>
+    </>
   );
 }

@@ -16,11 +16,6 @@ function* setNewsApiContents( {payload} ){
     if(!query){
       request = yield axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&${newsApiKey}`)
                             .then((response)=>{
-
-                              const check = response.data.articles.map((item)=>{
-                                return _.assignIn(item, {category}, {country});
-                              });
-
                               return response.data.articles.map((item)=>{
                                 return _.assignIn(item, {category}, {country});
                               });
@@ -28,10 +23,6 @@ function* setNewsApiContents( {payload} ){
     }else{
       request = yield axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&q=${query}&${newsApiKey}`)
                             .then((response)=>{
-                              const check = response.data.articles.map((item)=>{
-                                return _.assignIn(item, {category}, {country});
-                              });
-                              
                               return response.data.articles.map((item)=>{
                                 return _.assignIn(item, {category}, {country});
                               });

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 import {PageLayout} from '@newsApi/components';
 import TableResults from './TableResults';
