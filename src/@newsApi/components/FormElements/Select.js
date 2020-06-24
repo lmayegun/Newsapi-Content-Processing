@@ -2,12 +2,12 @@ import React from 'react';
 import {MenuItem, Select, InputLabel,FormControl} from '@material-ui/core';
 
 const AppSelect = props => {
-  const {handleChange, value, name, options, className} = props;
+  const {handleChange, value, name, options, className, label} = props;
 
   return(
     <div className={className}>
       <FormControl style={{width: 100+'%',}}>
-        <InputLabel>Category</InputLabel>
+        <InputLabel>{label}</InputLabel>
         <Select
           value={value}
           name={name}

@@ -82,7 +82,7 @@ const TableResults = (props) => {
 
   const handleProcessContent = (event, row) => {
     props.history.push({
-        pathname:'/save',
+        pathname:'/forward',
         article: row
       })
   }
@@ -149,7 +149,7 @@ const TableResults = (props) => {
                           color="primary"
                           onClick={(event) => handleProcessContent(event, row)}
                         >
-                          Create
+                          Forward
                         </Button>
                       </TableCell>
                     </TableRow>

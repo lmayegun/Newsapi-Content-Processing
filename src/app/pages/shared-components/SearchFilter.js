@@ -12,7 +12,7 @@ import * as FirebaseActions from 'app/store/actions/firebase';
 const SearchFilter = props =>{
   const classes = styles();
   const dispatch = useDispatch();
-  const {form, handleChange, setForm} = useForm({query: "", country: "us", category: "business"});
+  const {form, handleChange, setForm} = useForm({source:"none",query: "", country: "us", category: "business"});
 
   useEffect(()=>{
     dispatch(FirebaseActions.getFirebaseContents(form));
@@ -34,6 +34,14 @@ const SearchFilter = props =>{
         handleSubmit()
       }}>
         <div className={classes.search}>
+          <Select
+            label={"Source"}
+            handleChange={handleChange}
+            value={form.source}
+            name={"source"}
+            options={[{none:'None'},{business:'News Api'}, {sports:'Firebase'}, {health:'Drupal 8'}]}
+            className={"source"}
+          />
           <TextField
             className={classes.textField}
             id="outlined-basic"
@@ -99,8 +107,14 @@ const styles = makeStyles( theme => (
     },
     search:{
       display : 'flex',
+      flexDirection: 'column',
       width: '100%',
       margin: theme.spacing(0),
+      '& .source':{
+        flex: 1,
+        marginRight: theme.spacing(0.5),
+        marginBottom: theme.spacing(1.5)
+      },
       '& .magnifier-icon':{
         padding: theme.spacing(0.5),
       }

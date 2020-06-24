@@ -103,7 +103,7 @@ const TableResults = props => {
 
   const handleEditContent = (event, row) => {
     props.history.push({
-        pathname:'/save',
+        pathname:'/edit',
         article: row
       })
   }

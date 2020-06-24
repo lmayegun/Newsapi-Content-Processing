@@ -11,7 +11,7 @@ import {PageLayout} from '@newsApi/components';
 import {useForm} from '@newsApi/hooks';
 import * as Actions from 'app/store/actions/newsApi';
 
-const EditContent = (props)=>{
+const NewContent = (props)=>{
 
   const {location} = props;
   const classes = useStyles();
@@ -56,7 +56,7 @@ const EditContent = (props)=>{
 
   return(
     <PageLayout
-      header={<h1> Edit </h1>}
+      header={<h1> New </h1>}
       content={
         <div>
           {form && (
@@ -123,25 +123,15 @@ const EditContent = (props)=>{
                  className={'btn'}
                 startIcon={<SaveIcon />}
               >
-                Update
+                Save
               </Button>
-              <Button
-                 onClick={() => {alert('delete')}}
-                 variant="contained"
-                 color="primary"
-                 size="small"
-                 className={'btn'}
-                 startIcon={<SaveIcon />}
-               >
-                 Delete
-               </Button>
           </div>
           </div>
         }
     />
   )
 };
-export default withRouter(EditContent);
+export default withRouter(NewContent);
 
 
 const useStyles = makeStyles((theme) => ({

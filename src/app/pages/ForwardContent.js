@@ -11,7 +11,7 @@ import {PageLayout} from '@newsApi/components';
 import {useForm} from '@newsApi/hooks';
 import * as Actions from 'app/store/actions/newsApi';
 
-const EditContent = (props)=>{
+const ForwardContent = (props)=>{
 
   const {location} = props;
   const classes = useStyles();
@@ -56,7 +56,7 @@ const EditContent = (props)=>{
 
   return(
     <PageLayout
-      header={<h1> Edit </h1>}
+      header={<h1> Forward Content </h1>}
       content={
         <div>
           {form && (
@@ -105,43 +105,23 @@ const EditContent = (props)=>{
             </form>
           )}
           <div className={classes.fieldAction}>
-            <Button
-               onClick={() => {alert('preview')}}
-               variant="contained"
-               color="primary"
-               size="small"
+           <Button
+              onClick={() => dispatch(Actions.saveNewsApiContent(form))}
+              variant="contained"
+              color="primary"
+              size="small"
                className={'btn'}
-               startIcon={<SaveIcon />}
-             >
-               Preview
-             </Button>
-             <Button
-                onClick={() => dispatch(Actions.saveNewsApiContent(form))}
-                variant="contained"
-                color="primary"
-                size="small"
-                 className={'btn'}
-                startIcon={<SaveIcon />}
-              >
-                Update
-              </Button>
-              <Button
-                 onClick={() => {alert('delete')}}
-                 variant="contained"
-                 color="primary"
-                 size="small"
-                 className={'btn'}
-                 startIcon={<SaveIcon />}
-               >
-                 Delete
-               </Button>
+              startIcon={<SaveIcon />}
+            >
+              Forward Content
+            </Button>
           </div>
           </div>
         }
     />
   )
 };
-export default withRouter(EditContent);
+export default withRouter(ForwardContent);
 
 
 const useStyles = makeStyles((theme) => ({

@@ -8,6 +8,8 @@ import {
          FirebaseResults,
          NewsApiResults,
          EditContent,
+         NewContent,
+         ForwardContent
         } from 'app/pages';
 
 export default function BasicRoute() {
@@ -29,8 +31,18 @@ export default function BasicRoute() {
         </Route>
       </Switch>
       <Switch>
-        <Route path="/save">
+        <Route path="/edit">
           <EditContent />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/new">
+          <NewContent />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/forward">
+          <ForwardContent />
         </Route>
       </Switch>
     </>
