@@ -55,7 +55,7 @@ const styles = makeStyles( theme => (
     },
     resourcesWrapper:{
       display:'flex',
-      flex: 1.5,
+      flex: 1.2,
       justifyContent:'center',
       alignItems:'center'
     },
@@ -67,7 +67,7 @@ const styles = makeStyles( theme => (
     },
     newContent:{
       display:'flex',
-      flex: 1.5,
+      flex: 1.2,
       justifyContent:'center',
       alignItems:'center'
     }

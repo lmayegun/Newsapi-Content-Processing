@@ -7,6 +7,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import _ from '@lodash';
 
 import {Select, TextEditor} from '@newsApi/components/FormElements';
+import {Dialog} from '@newsApi/components/UIElements';
 import {PageLayout} from '@newsApi/components';
 import {useForm} from '@newsApi/hooks';
 import * as Actions from 'app/store/actions/newsApi';
@@ -105,36 +106,34 @@ const EditContent = (props)=>{
             </form>
           )}
           <div className={classes.fieldAction}>
+           <Dialog
+              btnTitle={"Preview"}
+           >
+              <a href={form.url} target="_blank" rel="noopener noreferrer"> {form.title} </a>
+              <div> {form.title} </div>
+              <div dangerouslySetInnerHTML={{__html:editorHtmlDescr}}/>
+              <div dangerouslySetInnerHTML={{__html:editorHtmlContent}}/>
+           </Dialog>
+           <Button
+              onClick={() => dispatch(Actions.saveNewsApiContent(form))}
+              variant="contained"
+              color="primary"
+              size="small"
+               className={'btn'}
+              startIcon={<SaveIcon />}
+            >
+              Update
+            </Button>
             <Button
-               onClick={() => {alert('preview')}}
+               onClick={() => {alert('delete')}}
                variant="contained"
                color="primary"
                size="small"
                className={'btn'}
                startIcon={<SaveIcon />}
              >
-               Preview
+               Delete
              </Button>
-             <Button
-                onClick={() => dispatch(Actions.saveNewsApiContent(form))}
-                variant="contained"
-                color="primary"
-                size="small"
-                 className={'btn'}
-                startIcon={<SaveIcon />}
-              >
-                Update
-              </Button>
-              <Button
-                 onClick={() => {alert('delete')}}
-                 variant="contained"
-                 color="primary"
-                 size="small"
-                 className={'btn'}
-                 startIcon={<SaveIcon />}
-               >
-                 Delete
-               </Button>
           </div>
           </div>
         }
