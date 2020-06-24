@@ -57,7 +57,9 @@ const EditContent = (props)=>{
 
   return(
     <PageLayout
-      header={<h1> Edit </h1>}
+      header={
+        <h1> Edit </h1>
+      }
       content={
         <div>
           {form && (

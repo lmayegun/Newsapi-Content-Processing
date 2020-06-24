@@ -6,8 +6,10 @@ import AppUtils from '@newsApi/AppUtils';
 import Logo from './Logo';
 import ResourcesButton from './ResourcesButtons';
 import SearchFilter from './SearchFilter';
+import AddContentBtn from './AddContentBtn';
 
 const SearchHeader = props=>{
+  const {resourcesBtn, searchFilter, addBtn} = props;
   const location = AppUtils.getLocation(props);
   const pathname = props.location.pathname;
   const classes = styles();
@@ -18,19 +20,25 @@ const SearchHeader = props=>{
         <Logo logo={location}/>
       </div>
       <Paper className={classes.container}>
-        <div className={classes.resourcesWrapper}>
-          <ResourcesButton />
-        </div>
-        { pathname !== '/save' && (
+        { resourcesBtn && (
+          <div className={classes.resourcesWrapper}>
+            <ResourcesButton />
+          </div>
+        )}
+
+        { searchFilter && (
           <React.Fragment>
             <div className={classes.searchFilterWrapper}>
               <SearchFilter />
             </div>
-
-            <div className={classes.newContent}>
-              dd new content
-            </div>
           </React.Fragment>
+        )}
+
+        { addBtn && (
+          <div className={classes.newContent}>
+            <AddContentBtn title={"Firebase"}/>
+            <AddContentBtn title={"Drupal 8"}/>
+          </div>
         )}
       </Paper>
     </>

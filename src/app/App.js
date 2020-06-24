@@ -18,7 +18,11 @@ function App() {
       <Provider store={store}>
         <ThemeProvider theme={defaultMuiTheme()}>
           <Router history={history}>
-            <SearchHeader />
+            <SearchHeader
+              resourcesBtn
+              searchFilter
+              addBtn
+            />
             <SwitchRoute />
           </Router>
         </ThemeProvider>
