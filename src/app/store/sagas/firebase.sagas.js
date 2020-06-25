@@ -24,6 +24,22 @@ function* getFirebaseContents({payload}){
   }
 }
 
+function* deleteContent( {payload} ){
+  const {category, id} = payload;
+
+  try{
+    const request = yield database.ref(`${category}/${id}`)
+                                  .remove()
+                                  .then(()=>{
+                                    return id;
+                                  });
+    yield put({type:"DELETE_FIREBASE_CONTENT_SUCCESS",payload:request});
+  }catch(err){
+
+  }
+}
+
 export const firebaseSagas = [
   takeLatest("GET_FIREBASE_CONTENTS", getFirebaseContents),
+  takeLatest("DELETE_FIREBASE_CONTENT", deleteContent ),
 ]

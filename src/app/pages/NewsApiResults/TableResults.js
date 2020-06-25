@@ -10,15 +10,19 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import AppUtils from '@newsApi/AppUtils';
 import EnhancedTableHead from 'app/pages/shared-components/TableHeadResult';
 import TableToolbarEnhanced from 'app/pages/shared-components/TableToolbarEnhanced';
+import * as NewsApiActions from 'app/store/actions/newsApi';
 
 const TableResults = (props) => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
+  const searchState  = useSelector( state => state.searchFilter.sourceState );
   const articlesSelector  = useSelector( state => state.newsApi.contents );
 
   const [order, setOrder] = useState('asc');
@@ -26,7 +30,11 @@ const TableResults = (props) => {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [rows, setRows]   = useState(articlesSelector);
+  const [rows, setRows] = useState(articlesSelector);
+
+  useEffect(()=>{
+    dispatch(NewsApiActions.setNewsApiContents(searchState));
+  },[searchState]);
 
   useEffect(()=>{
     setRows(articlesSelector);

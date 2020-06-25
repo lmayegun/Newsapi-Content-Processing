@@ -4,3 +4,10 @@ export function getFirebaseContents( payload ){
     payload
   };
 };
+
+export function deleteContent( payload ){
+  return{
+    type: "DELETE_FIREBASE_CONTENT",
+    payload
+  };
+};

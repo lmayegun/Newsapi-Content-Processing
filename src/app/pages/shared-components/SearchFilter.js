@@ -6,6 +6,7 @@ import {useDispatch} from 'react-redux';
 import {useForm} from '@newsApi/hooks';
 import {Select} from '@newsApi/components/FormElements';
 import {withRouter} from 'react-router-dom';
+import * as SearchActions from 'app/store/actions/forms';
 import * as NewsApiActions from 'app/store/actions/newsApi';
 import * as FirebaseActions from 'app/store/actions/firebase';
 
@@ -15,16 +16,17 @@ const SearchFilter = props =>{
   const {form, handleChange, setForm} = useForm({source:"none",query: "", country: "us", category: "business"});
 
   useEffect(()=>{
-    dispatch(FirebaseActions.getFirebaseContents(form));
-  },[dispatch, form]);
+
+  },[dispatch]);
 
   useEffect(()=>{
     setForm(form)
   },[form, setForm])
 
   function handleSubmit(){
-    dispatch(NewsApiActions.setNewsApiContents(form));
+    // dispatch(NewsApiActions.setNewsApiContents(form));
     dispatch(FirebaseActions.getFirebaseContents(form));
+    dispatch(SearchActions.submitSearchForm(form));
   };
 
   return(

@@ -11,6 +11,14 @@ const firebase = function ( state = initialState, action){
         contents: action.payload
       }
     }
+    case 'DELETE_FIREBASE_CONTENT_SUCCESS':
+    {
+      const filter = state.contents.filter(content => content.id !== action.payload );
+      return{
+        ...state,
+        contents: filter
+      }
+    }
     default:
     {
       return state

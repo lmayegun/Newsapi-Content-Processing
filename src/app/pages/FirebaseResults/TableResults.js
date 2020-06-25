@@ -10,40 +10,18 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import AppUtils from '@newsApi/AppUtils';
 import EnhancedTableHead from 'app/pages/shared-components/TableHeadResult';
 import TableToolbarEnhanced from 'app/pages/shared-components/TableToolbarEnhanced';
+import * as Actions from 'app/store/actions/firebase';
 
 const TableResults = props => {
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-    },
-    paper: {
-      width: '100%',
-      marginBottom: theme.spacing(2),
-    },
-    table: {
-      minWidth: 750,
-    },
-    visuallyHidden: {
-      border: 0,
-      clip: 'rect(0 0 0 0)',
-      height: 1,
-      margin: -1,
-      overflow: 'hidden',
-      padding: 0,
-      position: 'absolute',
-      top: 20,
-      width: 1,
-    },
-  }));
-
   const classes = useStyles();
 
+  const dispatch = useDispatch();
   const articlesSelector  = useSelector( state => state.firebase.contents );
 
   const [order, setOrder] = useState('asc');
@@ -52,6 +30,10 @@ const TableResults = props => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows]   = useState(articlesSelector);
+
+  useEffect(()=>{
+    // dispatch(Actions.getFirebaseContents());
+  })
 
   useEffect(()=>{
     setRows(articlesSelector);
@@ -106,6 +88,12 @@ const TableResults = props => {
         pathname:'/edit',
         article: row
       })
+  }
+
+  const handleDeleteContent = (event, row) => {
+    console.log(row);
+    alert(row.id);
+    dispatch(Actions.deleteContent(row));
   }
 
   const isSelected = (title) => selected.indexOf(title) !== -1;
@@ -179,7 +167,7 @@ const TableResults = props => {
                           <Button
                             variant="contained"
                             color="primary"
-                            onClick={(event) => handleEditContent(event, row)}
+                            onClick={(event) => handleDeleteContent(event, row)}
                           >
                             Delete
                           </Button>
@@ -206,3 +194,27 @@ const TableResults = props => {
 }
 
 export default withRouter(TableResults);
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  paper: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+  table: {
+    minWidth: 750,
+  },
+  visuallyHidden: {
+    border: 0,
+    clip: 'rect(0 0 0 0)',
+    height: 1,
+    margin: -1,
+    overflow: 'hidden',
+    padding: 0,
+    position: 'absolute',
+    top: 20,
+    width: 1,
+  },
+}));

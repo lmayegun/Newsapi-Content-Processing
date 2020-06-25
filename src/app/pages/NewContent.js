@@ -18,7 +18,6 @@ const NewContent = (props)=>{
   const dispatch = useDispatch();
   const article = useSelector( state => state.newsApi.content );
 
-  // const [theme, setTheme] = useState();
   const [editorHtmlDescr, setDescription] = useState("");
   const [editorHtmlContent, setBody] = useState("");
   const {form, handleChange, setForm} = useForm(sampleArticle);

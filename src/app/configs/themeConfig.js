@@ -3,7 +3,7 @@ import {grey} from '@material-ui/core/colors';
 
 export const defaultMuiTheme = ()=>{
   return createMuiTheme({
-      primaryWidth: 80+"%",
+    primaryWidth: 80+"%",
     palette: {
       primary: grey,
       secondary: grey,
