@@ -49,7 +49,7 @@ function* setNewsApiContent({payload}){
 
 function* saveNewsApiContent({payload}){
   try{
-    database.ref(payload.category).push({
+    database.ref(`articles/${payload.category}`).push({
       ...payload
     });
     yield put({

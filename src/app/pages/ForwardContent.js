@@ -96,7 +96,7 @@ const ForwardContent = (props)=>{
                     handleChange={handleChange}
                     value={form.category}
                     name={"category"}
-                    options={[{business:'Business'}, {sports:'Sports'}, {health:'Health'}, {entertainment:'Entertaiment'}]}
+                    options={[{news:'News'}, {knowledge:'Knowledge'}]}
                     className={"selector"}
                   />
                 </div>
@@ -159,7 +159,7 @@ const useStyles = makeStyles((theme) => ({
 const sampleArticle = {
   author: "",
   content: "",
-  category: "business",
+  category: "news",
   description: "",
   publishedAt: "2020-06-13T09:37:00Z",
   source:{

@@ -6,7 +6,7 @@ function* getFirebaseContents({payload}){
   const {category} = payload;
 
   try{
-    const request = yield database.ref(`${category}`)
+    const request = yield database.ref(`articles/${category}`)
                             .once('value')
                             .then(function(snapshot) {
                               const articles = []
@@ -28,7 +28,7 @@ function* deleteContent( {payload} ){
   const {category, id} = payload;
 
   try{
-    const request = yield database.ref(`${category}/${id}`)
+    const request = yield database.ref(`articles/${category}/${id}`)
                                   .remove()
                                   .then(()=>{
                                     return id;
