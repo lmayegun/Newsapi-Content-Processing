@@ -15,6 +15,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import AppUtils from '@newsApi/AppUtils';
 import EnhancedTableHead from 'app/pages/shared-components/TableHeadResult';
 import TableToolbarEnhanced from 'app/pages/shared-components/TableToolbarEnhanced';
+import {Dialog} from '@newsApi/components/UIElements';
 import * as Actions from 'app/store/actions/firebase';
 
 const TableResults = props => {
@@ -22,6 +23,8 @@ const TableResults = props => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+
+  const searchState  = useSelector( state => state.searchFilter.sourceState );
   const articlesSelector  = useSelector( state => state.firebase.contents );
 
   const [order, setOrder] = useState('asc');
@@ -29,11 +32,12 @@ const TableResults = props => {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
   const [rows, setRows]   = useState(articlesSelector);
 
   useEffect(()=>{
-    // dispatch(Actions.getFirebaseContents());
-  })
+    dispatch(Actions.getFirebaseContents(searchState));
+  },[dispatch, searchState])
 
   useEffect(()=>{
     setRows(articlesSelector);
@@ -91,8 +95,6 @@ const TableResults = props => {
   }
 
   const handleDeleteContent = (event, row) => {
-    console.log(row);
-    alert(row.id);
     dispatch(Actions.deleteContent(row));
   }
 
@@ -158,20 +160,25 @@ const TableResults = props => {
                       <TableCell align="right">
                           <Button
                             variant="contained"
-                            color="primary"
                             onClick={(event) => handleEditContent(event, row)}
                             style={{marginRight: 10}}
                           >
                             Edit
                           </Button>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={(event) => handleDeleteContent(event, row)}
+                          <Dialog
+                             btnTitle={"Delete"}
+                             color={"secondary"}
+                             variant={"contained"}
+                             style={{display:"inline", marginRight: 10}}
                           >
-                            Delete
-                          </Button>
-
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              onClick={(event) => handleDeleteContent(event, row)}
+                            >
+                              Delete
+                            </Button>
+                          </Dialog>
                       </TableCell>
                     </TableRow>
                   );
@@ -195,26 +202,29 @@ const TableResults = props => {
 
 export default withRouter(TableResults);
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 750,
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1,
-  },
-}));
+const useStyles = makeStyles((theme) => {
+  console.log(theme)
+  return ({
+    root: {
+      width: '100%',
+    },
+    paper: {
+      width: '100%',
+      marginBottom: theme.spacing(2),
+    },
+    table: {
+      minWidth: 750,
+    },
+    visuallyHidden: {
+      border: 0,
+      clip: 'rect(0 0 0 0)',
+      height: 1,
+      margin: -1,
+      overflow: 'hidden',
+      padding: 0,
+      position: 'absolute',
+      top: 20,
+      width: 1,
+    },
+  })
+});

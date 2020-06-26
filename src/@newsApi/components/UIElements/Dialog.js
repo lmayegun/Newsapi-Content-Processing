@@ -8,7 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 const FormDialog = props => {
-  const {btnTitle} = props;
+  const {btnTitle, color, variant, style} = props;
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -20,17 +20,15 @@ const FormDialog = props => {
   };
 
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+    <div style={style}>
+      <Button variant={variant} color={color} onClick={handleClickOpen}>
         {btnTitle}
       </Button>
       <Dialog
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
-
         maxWidth={"lg"}
-
       >
         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
         <DialogContent>

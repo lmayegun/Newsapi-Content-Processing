@@ -34,7 +34,7 @@ const TableResults = (props) => {
 
   useEffect(()=>{
     dispatch(NewsApiActions.setNewsApiContents(searchState));
-  },[searchState]);
+  },[dispatch, searchState]);
 
   useEffect(()=>{
     setRows(articlesSelector);

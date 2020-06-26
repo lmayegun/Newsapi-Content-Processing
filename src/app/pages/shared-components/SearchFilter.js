@@ -7,25 +7,18 @@ import {useForm} from '@newsApi/hooks';
 import {Select} from '@newsApi/components/FormElements';
 import {withRouter} from 'react-router-dom';
 import * as SearchActions from 'app/store/actions/forms';
-import * as NewsApiActions from 'app/store/actions/newsApi';
-import * as FirebaseActions from 'app/store/actions/firebase';
 
 const SearchFilter = props =>{
   const classes = styles();
   const dispatch = useDispatch();
-  const {form, handleChange, setForm} = useForm({source:"none",query: "", country: "us", category: "business"});
-
-  useEffect(()=>{
-
-  },[dispatch]);
+  const {form, handleChange, setForm} = useForm({source:"firebase",query: "", country: "us", category: "business"});
 
   useEffect(()=>{
     setForm(form)
   },[form, setForm])
 
   function handleSubmit(){
-    // dispatch(NewsApiActions.setNewsApiContents(form));
-    dispatch(FirebaseActions.getFirebaseContents(form));
+    props.history.push(`/${form.source}`)
     dispatch(SearchActions.submitSearchForm(form));
   };
 
@@ -41,7 +34,7 @@ const SearchFilter = props =>{
             handleChange={handleChange}
             value={form.source}
             name={"source"}
-            options={[{none:'None'},{business:'News Api'}, {sports:'Firebase'}, {health:'Drupal 8'}]}
+            options={[{newsapi:'News Api'}, {firebase:'Firebase'}, {drupal8:'Drupal 8'}]}
             className={"source"}
           />
           <TextField
@@ -63,14 +56,16 @@ const SearchFilter = props =>{
             options={[{business:'Business'}, {sports:'Sports'}, {health:'Health'}, {entertainment:'Entertaiment'}]}
             className={"selector"}
           />
-          <Select
-            label={"Country"}
-            handleChange={handleChange}
-            value={form.country}
-            name={"country"}
-            options={[{us:'US'}, {gb:'UK'}, {de:'Denmark'}]}
-            className={"selector"}
-          />
+          {form.source === 'newsapi' && (
+            <Select
+              label={"Country"}
+              handleChange={handleChange}
+              value={form.country}
+              name={"country"}
+              options={[{us:'US'}, {gb:'UK'}, {de:'Denmark'}]}
+              className={"selector"}
+            />
+          )}
         </div>
         <div className={classes.submit}>
           <Button

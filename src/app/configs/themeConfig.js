@@ -1,12 +1,12 @@
 import {createMuiTheme} from '@material-ui/core/styles';
-import {grey} from '@material-ui/core/colors';
+import {grey, blue, red} from '@material-ui/core/colors';
 
 export const defaultMuiTheme = ()=>{
   return createMuiTheme({
     primaryWidth: 80+"%",
     palette: {
-      primary: grey,
-      secondary: grey,
+      primary: blue,
+      secondary: red,
     },
     typography:{
       fontFamily: ['Euclid Flex','Roboto','"Helvetica"','Arial','sans-serif'].join(','),
@@ -34,7 +34,7 @@ export const defaultMuiTheme = ()=>{
       }
     },
     status: {
-      danger: 'red',
+      danger: red,
     },
   })
 }

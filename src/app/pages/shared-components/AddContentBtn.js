@@ -20,7 +20,7 @@ const AddContentBtn = props => {
       <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end'}}>
         <div>{title}</div>
         <NavLink to="/new">
-          <Fab color="secondary" aria-label="add" className={classes.margin}>
+          <Fab color="primary" aria-label="add" className={classes.margin}>
             <AddIcon />
           </Fab>
         </NavLink>
