@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import {withRouter} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Table from '@material-ui/core/Table';
@@ -8,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import {useSelector, useDispatch} from 'react-redux';
@@ -36,7 +37,9 @@ const TableResults = props => {
   const [rows, setRows]   = useState(articlesSelector);
 
   useEffect(()=>{
-    dispatch(Actions.getFirebaseContents(searchState));
+    if(searchState.source == 'firebase'){
+      dispatch(Actions.getFirebaseContents(searchState));
+    };
   },[dispatch, searchState])
 
   useEffect(()=>{
@@ -171,13 +174,17 @@ const TableResults = props => {
                              variant={"contained"}
                              style={{display:"inline", marginRight: 10}}
                           >
-                            <Button
-                              variant="contained"
-                              color="secondary"
-                              onClick={(event) => handleDeleteContent(event, row)}
-                            >
-                              Delete
-                            </Button>
+                            <div style={{alignContent:'center'}}>
+                              <Typography variant="h4" component="h1" gutterBottom> You are about to delete this content: </Typography>
+                              <Typography variant="subtitle1"> {row.title} </Typography>
+                              <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={(event) => handleDeleteContent(event, row)}
+                              >
+                                Delete
+                              </Button>
+                            </div>
                           </Dialog>
                       </TableCell>
                     </TableRow>

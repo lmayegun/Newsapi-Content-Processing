@@ -11,7 +11,7 @@ import * as SearchActions from 'app/store/actions/forms';
 const SearchFilter = props =>{
   const classes = styles();
   const dispatch = useDispatch();
-  const {form, handleChange, setForm} = useForm({source:"firebase",query: "", country: "us", category: "business"});
+  const {form, handleChange, setForm} = useForm({source:"newsapi", query: "", country: "gb", category: "health"});
 
   useEffect(()=>{
     setForm(form)

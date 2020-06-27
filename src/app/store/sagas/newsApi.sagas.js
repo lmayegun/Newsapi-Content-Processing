@@ -8,11 +8,10 @@ import {newsApiKey} from 'config/apiKeys';
 function* setNewsApiContents( {payload} ){
   try{
     const query = payload.query ? payload.query : null;
-    const country = payload.country ? payload.country : 'de';
-    const category = payload.category ? payload.category : 'sport';
+    const country = payload.country ? payload.country : 'gb';
+    const category = payload.category ? payload.category : 'health';
 
     let request = '';
-
     if(!query){
       request = yield axios.get(`https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&${newsApiKey}`)
                             .then((response)=>{

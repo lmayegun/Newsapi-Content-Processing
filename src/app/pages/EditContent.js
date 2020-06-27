@@ -110,6 +110,7 @@ const EditContent = (props)=>{
           <div className={classes.fieldAction}>
            <Dialog
               btnTitle={"Preview"}
+              closeTitle={'Close'}
            >
               <a href={form.url} target="_blank" rel="noopener noreferrer"> {form.title} </a>
               <div> {form.title} </div>

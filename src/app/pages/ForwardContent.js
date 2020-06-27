@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {withRouter} from 'react-router-dom';
-import {TextField, Button} from '@material-ui/core';
+import {TextField, Button, Typography} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 import {makeStyles} from '@material-ui/styles';
 import {useSelector, useDispatch} from 'react-redux';
@@ -8,6 +8,7 @@ import _ from '@lodash';
 
 import {Select, TextEditor} from '@newsApi/components/FormElements';
 import {PageLayout} from '@newsApi/components';
+import {Dialog} from '@newsApi/components/UIElements';
 import {useForm} from '@newsApi/hooks';
 import * as Actions from 'app/store/actions/newsApi';
 
@@ -104,16 +105,29 @@ const ForwardContent = (props)=>{
             </form>
           )}
           <div className={classes.fieldAction}>
-           <Button
-              onClick={() => dispatch(Actions.saveNewsApiContent(form))}
-              variant="contained"
-              color="primary"
-              size="small"
-               className={'btn'}
-              startIcon={<SaveIcon />}
-            >
-              Forward Content
-            </Button>
+          <Dialog
+            btnTitle={"Forward"}
+            color={"primary"}
+            variant={"contained"}
+            style={{display:"inline", marginRight: 10}}
+            btnIcon={<SaveIcon />}
+          >
+            <div style={{alignContent:'center'}}>
+              <Typography variant="h4" component="h1" gutterBottom>
+                You are about to forward this content to firbase store. 
+              </Typography>
+              <Button
+                onClick={() => dispatch(Actions.saveNewsApiContent(form))}
+                variant="contained"
+                color="primary"
+                size="small"
+                className={'btn'}
+                startIcon={<SaveIcon />}
+              >
+                Forward Content
+              </Button>
+            </div>
+          </Dialog>
           </div>
           </div>
         }
