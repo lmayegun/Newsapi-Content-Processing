@@ -72,20 +72,9 @@ const ForwardContent = (props)=>{
                     id="outlined-basic"
                     label="Title"
                     variant="outlined"
+                    name="title"
                     value={form.title}
                     onChange={handleChange}
-                    style={{width:100+'%'}}
-                  />
-                </div>
-
-                <div className={classes.field} style={{width:50+'%'}}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Author"
-                    variant="outlined"
-                    name="title"
-                    onChange={handleChange}
-                    value={form.author}
                     style={{width:100+'%'}}
                   />
                 </div>
@@ -117,6 +106,30 @@ const ForwardContent = (props)=>{
                     className={"selector"}
                   />
                 </div>
+
+                <div className={classes.field}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Author"
+                    variant="outlined"
+                    name="author"
+                    onChange={handleChange}
+                    value={form.author}
+                    style={{width:100+'%'}}
+                  />
+                </div>
+
+                <div className={classes.field}>
+                  <TextField
+                    type="datetime-local"
+                    id="outlined-basic"
+                    variant="outlined"
+                    name="publishedAt"
+                    onChange={handleChange}
+                    value={form.publishedAt}
+                    style={{width:100+'%'}}
+                  />
+                </div>
               </div>
             </form>
           )}
@@ -133,7 +146,7 @@ const ForwardContent = (props)=>{
                 You are about to forward this content to firbase store.
               </Typography>
               <Button
-                onClick={() => handleForward }
+                onClick={handleForward}
                 variant="contained"
                 color="primary"
                 size="small"

@@ -48,21 +48,34 @@ const SearchFilter = props =>{
           />
         </div>
         <div className={classes.filters}>
-          <Select
-            label={"Category"}
-            handleChange={handleChange}
-            value={form.category}
-            name={"category"}
-            options={[{business:'Business'}, {sports:'Sports'}, {health:'Health'}, {entertainment:'Entertaiment'}]}
-            className={"selector"}
-          />
           {form.source === 'newsapi' && (
+            <>
+              <Select
+                label={"Category"}
+                handleChange={handleChange}
+                value={form.category}
+                name={"category"}
+                options={[{business:'Business'}, {sports:'Sports'}, {health:'Health'}, {entertainment:'Entertaiment'}]}
+                className={"selector"}
+              />
+              <Select
+                label={"Country"}
+                handleChange={handleChange}
+                value={form.country}
+                name={"country"}
+                options={[{us:'US'}, {gb:'UK'}, {de:'Denmark'}]}
+                className={"selector"}
+              />
+            </>
+          )}
+
+          {form.source === 'firebase' && (
             <Select
-              label={"Country"}
+              label={"Category"}
               handleChange={handleChange}
-              value={form.country}
-              name={"country"}
-              options={[{us:'US'}, {gb:'UK'}, {de:'Denmark'}]}
+              value={form.category}
+              name={"category"}
+              options={[{news:'News'}, {knowledge:'Knowledge'}, {health:'Health'}, {sport:'Sports'}, {business:'Business'}, {entertainment:'Entertainment'}]}
               className={"selector"}
             />
           )}
