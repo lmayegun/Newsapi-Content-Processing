@@ -6,7 +6,7 @@ import {makeStyles} from '@material-ui/styles';
 import {useSelector, useDispatch} from 'react-redux';
 import _ from '@lodash';
 
-import {Select, TextEditor} from '@newsApi/components/FormElements';
+import {Select, TextEditor, TagsSelect} from '@newsApi/components/FormElements';
 import {PageLayout} from '@newsApi/components';
 import {Dialog} from '@newsApi/components/UIElements';
 import {useForm} from '@newsApi/hooks';
@@ -30,6 +30,7 @@ const ForwardContent = (props)=>{
   useEffect(()=>{
     if( location.article ){
       dispatch(Actions.setNewsApiContent(location.article));
+      location.article.tags = [];
       setForm(location.article);
     }else{
       dispatch(Actions.setNewsApiContent(sampleArticle));
@@ -57,6 +58,11 @@ const ForwardContent = (props)=>{
   function handleForward(){
     dispatch(Actions.saveNewsApiContent(form));
     props.history.push('/firebase');
+  }
+
+  function handleChipChange(value, name)
+  {
+    setForm(_.set({...form}, name, value.map(item => item.value)));
   }
 
   return(
@@ -128,6 +134,28 @@ const ForwardContent = (props)=>{
                     onChange={handleChange}
                     value={form.publishedAt}
                     style={{width:100+'%'}}
+                  />
+                </div>
+
+                <div className={classes.field}>
+                  <TagsSelect
+                      className="mt-8 mb-24"
+                      value={
+                        form.tags.map(item => ({
+                          value: item,
+                          label: item
+                        }))
+                      }
+                      onChange={(value) => handleChipChange(value, 'tags')}
+                      placeholder="Select multiple categories"
+                      textFieldProps={{
+                          label          : 'Tags',
+                          InputLabelProps: {
+                              shrink: true
+                          },
+                          variant        : 'outlined'
+                      }}
+                      isMulti
                   />
                 </div>
               </div>
@@ -205,6 +233,7 @@ const sampleArticle = {
   category: "news",
   description: "",
   publishedAt: "2020-06-13T09:37:00Z",
+  tags:[],
   source:{
     id: null,
     name: ""
