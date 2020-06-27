@@ -13,46 +13,29 @@ import * as Actions from 'app/store/actions/newsApi';
 
 const ContentForm = (props)=>{
 
-  const {location, formType} = props;
+  const {location, formType, sampleArticle} = props;
   const classes = useStyles();
   const dispatch = useDispatch();
-  const article = useSelector( state => state.newsApi.content );
+  const articleState = useSelector( state => state.newsApi.content );
 
-  const [editorHtmlDescr, setDescription] = useState("");
-  const [editorHtmlContent, setBody] = useState("");
-  const {form, handleChange, setForm} = useForm(sampleArticle);
-
-  useEffect(()=>{
-
-  })
+  const [article, setArticle] = useState(articleState);
+  const {form, handleChange, setForm} = useForm(articleState);
 
   useEffect(()=>{
     if( location.article ){
-      dispatch(Actions.setNewsApiContent(location.article));
       location.article.tags = [];
-      setForm(location.article);
-    }else{
-      dispatch(Actions.setNewsApiContent(sampleArticle));
-      setForm(sampleArticle);
-    }
-  },[dispatch, location.article, setForm])
+      dispatch(Actions.setNewsApiContent(location.article));
+      setArticle(articleState);
+    };
+  },[dispatch,location.article])
 
   useEffect(()=>{
-    if(article){
-      setDescription(article.description);
-      setBody(article.content);
+    if( !form){
+      setForm(articleState);
+    }else{
+      // setForm(sampleArticle);
     }
-  },[article]);
-
-  function handleEditorDescription (content, delta, html, editor){
-    setDescription(content);
-    setForm(_.set({...form}, "description", content ));
-  }
-
-  function handleEditorBody (content, delta, html, editor){
-    setBody(content);
-    setForm(_.set({...form}, "content", content ));
-  }
+  },[form,articleState, setForm])
 
   function handleForward(){
     dispatch(Actions.saveNewsApiContent(form));
@@ -63,6 +46,16 @@ const ContentForm = (props)=>{
   {
     setForm(_.set({...form}, name, value.map(item => item.value)));
   }
+
+  useEffect(()=>{
+    return ()=>{
+      setForm(_.set({}));
+    }
+  },[])
+
+  if(!form){
+    return <h1>form is empty </h1>;
+  };
 
   return(
     <div>
@@ -75,7 +68,7 @@ const ContentForm = (props)=>{
                 label="Title"
                 variant="outlined"
                 name="title"
-                value={form.title}
+                value={form.title ? form.title : ''}
                 onChange={handleChange}
                 style={{width:100+'%'}}
               />
@@ -84,16 +77,20 @@ const ContentForm = (props)=>{
             <div className={classes.field}>
               <TextEditor
                 label={"Description"}
-                handleEditorChange={handleEditorDescription}
-                value={editorHtmlDescr}
+                name={"description"}
+                setForm={setForm}
+                form={form}
+                value={form.description ? form.description : ''}
               />
             </div>
 
             <div className={classes.field}>
               <TextEditor
                 label={"Body"}
-                handleEditorChange={handleEditorBody}
-                value={editorHtmlContent}
+                name={"content"}
+                setForm={setForm}
+                form={form}
+                value={form.content ? form.content : ""}
               />
             </div>
           </div>
@@ -167,8 +164,8 @@ const ContentForm = (props)=>{
          >
             <a href={form.url} target="_blank" rel="noopener noreferrer"> {form.title} </a>
             <div> {form.title} </div>
-            <div dangerouslySetInnerHTML={{__html:editorHtmlDescr}}/>
-            <div dangerouslySetInnerHTML={{__html:editorHtmlContent}}/>
+            <div dangerouslySetInnerHTML={{__html:form.description}}/>
+            <div dangerouslySetInnerHTML={{__html:form.content}}/>
          </Dialog>
          <Button
             onClick={() => dispatch(Actions.saveNewsApiContent(form))}
@@ -249,7 +246,7 @@ const ContentForm = (props)=>{
     </div>
   )
 };
-export default withRouter(ContentForm);
+export default withRouter(React.memo(ContentForm));
 
 
 const useStyles = makeStyles((theme) => ({
@@ -285,18 +282,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const sampleArticle = {
-  author: "",
-  content: "",
-  category: "news",
-  description: "",
-  publishedAt: "2020-06-13T09:37:00Z",
-  tags:[],
-  source:{
-    id: null,
-    name: ""
-  },
-  title: "",
-  url: "https://www.essentiallysports.com/boxing-news-anthony-joshua-im-not-interested-in-fighting-you-tyson-fury-sends-dillian-whyte-a-message/",
-  urlToImage: "https://image-cdn.essentiallysports.com/wp-content/uploads/20200212020935/Tyson-Fury-With-mic.jpg"
+ContentForm.defaultProps = {
+   sampleArticle: {
+    author: "",
+    description: "",
+    content: "",
+    category: "news",
+    publishedAt: "2020-06-13T09:37:00Z",
+    tags:[],
+    source:{
+      id: null,
+      name: ""
+    },
+    title: "",
+    url: "https://www.essentiallysports.com/boxing-news-anthony-joshua-im-not-interested-in-fighting-you-tyson-fury-sends-dillian-whyte-a-message/",
+    urlToImage: "https://image-cdn.essentiallysports.com/wp-content/uploads/20200212020935/Tyson-Fury-With-mic.jpg"
+  }
 }

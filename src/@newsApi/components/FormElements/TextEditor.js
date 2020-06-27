@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import _ from '@lodash';
 
 const TextEditor = (props)=>{
 
-  const {handleEditorChange, value, label, } = props;
+  const { setForm, form, label, name, value } = props;
+
+  function handleEditorChange (content, delta, html, editor, name, setForm, form){
+    setForm(_.set({...form}, name, content ));
+  }
 
   return(
     <>
       <h3> {label} </h3>
       <ReactQuill
         theme={'snow'}
-        onChange={handleEditorChange}
+        onChange={(c, d, h, e)=>handleEditorChange(c, d, h, e, name, setForm, form )}
         value={value}
         modules={{
           toolbar: [
@@ -42,4 +47,4 @@ const TextEditor = (props)=>{
   )
 }
 
-export default TextEditor;
+export default React.memo(TextEditor);
