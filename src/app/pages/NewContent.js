@@ -68,7 +68,19 @@ const NewContent = (props)=>{
                     variant="outlined"
                     name="title"
                     onChange={handleChange}
-                    defaultValue={form.title}
+                    value={form.title}
+                    style={{width:100+'%'}}
+                  />
+                </div>
+
+                <div className={classes.field}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Autor"
+                    variant="outlined"
+                    name="title"
+                    onChange={handleChange}
+                    value={form.author}
                     style={{width:100+'%'}}
                   />
                 </div>
@@ -96,7 +108,7 @@ const NewContent = (props)=>{
                     handleChange={handleChange}
                     value={form.category}
                     name={"category"}
-                    options={[{news:'News'}, {knowledge:'Knowledge'}]}
+                    options={[{news:'News'}, {knowledge:'Knowledge'}, {health:'Health'}, {sport:'Sports'}, {business:'Business'}, {entertainment:'Entertainment'}]}
                     className={"selector"}
                   />
                 </div>

@@ -54,6 +54,11 @@ const ForwardContent = (props)=>{
     setForm(_.set({...form}, "content", content ));
   }
 
+  function handleForward(){
+    dispatch(Actions.saveNewsApiContent(form));
+    props.history.push('/firebase');
+  }
+
   return(
     <PageLayout
       header={<h1> Forward Content </h1>}
@@ -67,9 +72,20 @@ const ForwardContent = (props)=>{
                     id="outlined-basic"
                     label="Title"
                     variant="outlined"
+                    value={form.title}
+                    onChange={handleChange}
+                    style={{width:100+'%'}}
+                  />
+                </div>
+
+                <div className={classes.field} style={{width:50+'%'}}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Author"
+                    variant="outlined"
                     name="title"
                     onChange={handleChange}
-                    defaultValue={form.title}
+                    value={form.author}
                     style={{width:100+'%'}}
                   />
                 </div>
@@ -97,7 +113,7 @@ const ForwardContent = (props)=>{
                     handleChange={handleChange}
                     value={form.category}
                     name={"category"}
-                    options={[{news:'News'}, {knowledge:'Knowledge'}]}
+                    options={[{news:'News'}, {knowledge:'Knowledge'}, {health:'Health'}, {sport:'Sports'}, {business:'Business'}, {entertainment:'Entertainment'}]}
                     className={"selector"}
                   />
                 </div>
@@ -114,10 +130,10 @@ const ForwardContent = (props)=>{
           >
             <div style={{alignContent:'center'}}>
               <Typography variant="h4" component="h1" gutterBottom>
-                You are about to forward this content to firbase store. 
+                You are about to forward this content to firbase store.
               </Typography>
               <Button
-                onClick={() => dispatch(Actions.saveNewsApiContent(form))}
+                onClick={() => handleForward }
                 variant="contained"
                 color="primary"
                 size="small"

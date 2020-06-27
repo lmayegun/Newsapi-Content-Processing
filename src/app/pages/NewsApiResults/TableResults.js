@@ -33,7 +33,7 @@ const TableResults = (props) => {
   const [rows, setRows] = useState(articlesSelector);
 
   useEffect(()=>{
-    if(searchState.source == 'newsapi'){
+    if(searchState.source === 'newsapi'){
       dispatch(NewsApiActions.setNewsApiContents(searchState));
     };
   },[dispatch, searchState]);

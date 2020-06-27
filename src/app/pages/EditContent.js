@@ -72,7 +72,7 @@ const EditContent = (props)=>{
                     variant="outlined"
                     name="title"
                     onChange={handleChange}
-                    defaultValue={form.title}
+                    value={form.title}
                     style={{width:100+'%'}}
                   />
                 </div>
@@ -100,7 +100,7 @@ const EditContent = (props)=>{
                     handleChange={handleChange}
                     value={form.category}
                     name={"category"}
-                    options={[{business:'Business'}, {sports:'Sports'}, {health:'Health'}, {entertainment:'Entertaiment'}]}
+                    options={[{news:'News'}, {knowledge:'Knowledge'}, {health:'Health'}, {sport:'Sports'}, {business:'Business'}, {entertainment:'Entertainment'}]}
                     className={"selector"}
                   />
                 </div>

@@ -11,7 +11,6 @@ import AddContentBtn from './AddContentBtn';
 const SearchHeader = props=>{
   const {resourcesBtn, searchFilter, addBtn} = props;
   const location = AppUtils.getLocation(props);
-  const pathname = props.location.pathname;
   const classes = styles();
 
   return(
@@ -36,8 +35,7 @@ const SearchHeader = props=>{
 
         { addBtn && (
           <div className={classes.newContent}>
-            <AddContentBtn title={"Firebase"}/>
-            <AddContentBtn title={"Drupal 8"}/>
+            <AddContentBtn title={""}/>
           </div>
         )}
       </Paper>

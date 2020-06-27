@@ -37,7 +37,7 @@ const TableResults = props => {
   const [rows, setRows]   = useState(articlesSelector);
 
   useEffect(()=>{
-    if(searchState.source == 'firebase'){
+    if(searchState.source === 'firebase'){
       dispatch(Actions.getFirebaseContents(searchState));
     };
   },[dispatch, searchState])
