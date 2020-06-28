@@ -8,14 +8,14 @@ const newsApi = function ( state = initialState, action){
     {
       return{
         ...state,
-        contents: action.payload
+        newsapiContents: action.payload
       }
     }
     case 'NEWSAPI_CONTENT_SUCCESS':
     {
       return{
         ...state,
-        content: action.payload
+        newsapiContent: action.payload
       }
     }
     default:

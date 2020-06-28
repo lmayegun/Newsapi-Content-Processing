@@ -7,44 +7,35 @@ import {
 import {
          FirebaseResults,
          NewsApiResults,
-         EditContent,
+         FirebaseEditContent,
          NewContent,
          ForwardContent
         } from 'app/pages';
+import SearchHeader from 'app/pages/shared-components/SearchHeader';
 
 export default function BasicRoute() {
   return (
     <>
       <Switch>
         <Route exact path="/">
-          <EditContent />
+          <FirebaseEditContent />
         </Route>
-      </Switch>
-      <Switch>
+        <Route path="/new">
+          <NewContent />
+        </Route>
+        <Route path="/firebase/edit">
+          <FirebaseEditContent />
+        </Route>
+        <Route path="/firebase">
+          <FirebaseResults />
+        </Route>
+        <Route path="/newsapi/forward">
+          <ForwardContent />
+        </Route>
         <Route path="/newsapi">
           <NewsApiResults />
         </Route>
       </Switch>
-      <Switch>
-        <Route exact path="/firebase">
-          <FirebaseResults />
-        </Route>
-      </Switch>
-      <Switch>
-        <Route path="/edit">
-          <EditContent />
-        </Route>
-      </Switch>
-      <Switch>
-        <Route path="/new">
-          <NewContent />
-        </Route>
-      </Switch>
-      <Switch>
-        <Route path="/forward">
-          <ForwardContent />
-        </Route>
-      </Switch>
     </>
   );
-}
+};

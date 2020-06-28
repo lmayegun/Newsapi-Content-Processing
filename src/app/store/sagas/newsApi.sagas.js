@@ -35,8 +35,11 @@ function* setNewsApiContents( {payload} ){
 
   }
 };
+
 function* setNewsApiContent({payload}){
   try{
+    // alert(payload.title);
+    payload.tags = [];
     yield put({
                type:"NEWSAPI_CONTENT_SUCCESS",
                payload

@@ -13,53 +13,24 @@ import * as Actions from 'app/store/actions/newsApi';
 
 const ContentForm = (props)=>{
 
-  const {location, formType, sampleArticle} = props;
+  const { formType, article, forwardAction} = props;
+
   const classes = useStyles();
   const dispatch = useDispatch();
-  const articleState = useSelector( state => state.newsApi.content );
 
-  const [article, setArticle] = useState(articleState);
-  const {form, handleChange, setForm} = useForm(articleState);
+  const {form, handleChange, setForm} = useForm(article);
 
   useEffect(()=>{
-    if( location.article ){
-      location.article.tags = [];
-      dispatch(Actions.setNewsApiContent(location.article));
-      setArticle(articleState);
-    };
-  },[dispatch,location.article])
+      setForm(article);
+  },[article, setForm]);
 
-  useEffect(()=>{
-    if( !form){
-      setForm(articleState);
-    }else{
-      // setForm(sampleArticle);
-    }
-  },[form,articleState, setForm])
-
-  function handleForward(){
-    dispatch(Actions.saveNewsApiContent(form));
-    props.history.push('/firebase');
-  }
-
-  function handleChipChange(value, name)
-  {
+  function handleChipChange(value, name){
     setForm(_.set({...form}, name, value.map(item => item.value)));
-  }
-
-  useEffect(()=>{
-    return ()=>{
-      setForm(_.set({}));
-    }
-  },[])
-
-  if(!form){
-    return <h1>form is empty </h1>;
   };
 
   return(
     <div>
-      {form && (
+      {(form || (formType === 'new') ) && (
         <form className={classes.root} noValidate autoComplete="off">
           <div style={{flex:4}}>
             <div className={classes.field}>
@@ -157,38 +128,38 @@ const ContentForm = (props)=>{
       )}
       <div className={classes.fieldAction}>
        {formType === 'edit' && (
-       <>
-         <Dialog
-            btnTitle={"Preview"}
-            closeTitle={'Close'}
-         >
-            <a href={form.url} target="_blank" rel="noopener noreferrer"> {form.title} </a>
-            <div> {form.title} </div>
-            <div dangerouslySetInnerHTML={{__html:form.description}}/>
-            <div dangerouslySetInnerHTML={{__html:form.content}}/>
-         </Dialog>
-         <Button
-            onClick={() => dispatch(Actions.saveNewsApiContent(form))}
-            variant="contained"
-            color="primary"
-            size="small"
-             className={'btn'}
-            startIcon={<SaveIcon />}
-          >
-            Update
-          </Button>
-          <Button
-             onClick={() => {alert('delete')}}
-             variant="contained"
-             color="primary"
-             size="small"
-             className={'btn'}
-             startIcon={<SaveIcon />}
+         <>
+           <Dialog
+              btnTitle={"Preview"}
+              closeTitle={'Close'}
            >
-             Delete
-           </Button>
-         </>
-       )}
+              <a href={form.url} target="_blank" rel="noopener noreferrer"> {form.title} </a>
+              <div> {form.title} </div>
+              <div dangerouslySetInnerHTML={{__html:form.description}}/>
+              <div dangerouslySetInnerHTML={{__html:form.content}}/>
+           </Dialog>
+           <Button
+              onClick={() => dispatch(Actions.saveNewsApiContent(form))}
+              variant="contained"
+              color="primary"
+              size="small"
+               className={'btn'}
+              startIcon={<SaveIcon />}
+            >
+              Update
+            </Button>
+            <Button
+               onClick={() => {alert('delete')}}
+               variant="contained"
+               color="primary"
+               size="small"
+               className={'btn'}
+               startIcon={<SaveIcon />}
+             >
+               Delete
+             </Button>
+           </>
+         )}
 
        {formType === 'forward' && (
          <>
@@ -204,7 +175,10 @@ const ContentForm = (props)=>{
                  You are about to forward this content to firbase store.
                </Typography>
                <Button
-                 onClick={handleForward}
+                 onClick={(e)=>{
+                   e.preventDefault();
+                   forwardAction(form);
+                 }}
                  variant="contained"
                  color="primary"
                  size="small"
@@ -246,6 +220,7 @@ const ContentForm = (props)=>{
     </div>
   )
 };
+
 export default withRouter(React.memo(ContentForm));
 
 

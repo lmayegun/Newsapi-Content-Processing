@@ -24,6 +24,19 @@ function* getFirebaseContents({payload}){
   }
 }
 
+function* setFirebaseContent({payload}){
+  try{
+    // alert(payload.title);
+    payload.tags = [];
+    yield put({
+               type:"SET_FIREBASE_CONTENT_SUCCESS",
+               payload
+              })
+  }catch(e){
+
+  }
+};
+
 function* deleteContent( {payload} ){
   const {category, id} = payload;
 
@@ -39,7 +52,10 @@ function* deleteContent( {payload} ){
   }
 }
 
+
+
 export const firebaseSagas = [
   takeLatest("GET_FIREBASE_CONTENTS", getFirebaseContents),
+  takeLatest("SET_FIREBASE_CONTENT", setFirebaseContent),
   takeLatest("DELETE_FIREBASE_CONTENT", deleteContent ),
 ]

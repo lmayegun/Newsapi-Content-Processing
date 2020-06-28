@@ -1,25 +1,30 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {makeStyles, Paper, Button, TextField} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import {useForm} from '@newsApi/hooks';
 import {Select} from '@newsApi/components/FormElements';
 import {withRouter} from 'react-router-dom';
 import * as SearchActions from 'app/store/actions/forms';
+import * as Firebase from 'app/store/actions/firebase';
+import * as NewsApi from 'app/store/actions/newsApi';
 
 const SearchFilter = props =>{
   const classes = styles();
   const dispatch = useDispatch();
-  const {form, handleChange, setForm} = useForm({source:"newsapi", query: "", country: "gb", category: "health"});
+  const searchFilterState = useSelector( state => state.searchFilter );
+  const {form, handleChange, setForm} = useForm(searchFilterState);
 
   useEffect(()=>{
     setForm(form)
+    props.history.push(`/${form.source}`)
+    dispatch(SearchActions.setSearchForm(form));
   },[form, setForm])
 
   function handleSubmit(){
-    props.history.push(`/${form.source}`)
-    dispatch(SearchActions.submitSearchForm(form));
+    dispatch(Firebase.getFirebaseContents(form));
+    dispatch(NewsApi.getNewsApiContents(form));
   };
 
   return(

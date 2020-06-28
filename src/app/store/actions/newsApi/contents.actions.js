@@ -1,4 +1,4 @@
-export function setNewsApiContents( payload ){
+export function getNewsApiContents( payload ){
   return{
     type: "SET_NEWSAPI_CONTENTS",
     payload
@@ -16,5 +16,5 @@ export function saveNewsApiContent( payload ){
   return{
     type: "SAVE_NEWSAPI_CONTENT",
     payload
-  }
-}
+  };
+};

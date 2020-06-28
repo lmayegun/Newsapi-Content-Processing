@@ -17,16 +17,13 @@ import AppUtils from '@newsApi/AppUtils';
 import EnhancedTableHead from 'app/pages/shared-components/TableHeadResult';
 import TableToolbarEnhanced from 'app/pages/shared-components/TableToolbarEnhanced';
 import {Dialog} from '@newsApi/components/UIElements';
-import * as Actions from 'app/store/actions/firebase';
+import * as FirebaseActions from 'app/store/actions/firebase';
 
 const TableResults = props => {
-
+  const {articles} = props;
   const classes = useStyles();
 
   const dispatch = useDispatch();
-
-  const searchState  = useSelector( state => state.searchFilter.sourceState );
-  const articlesSelector  = useSelector( state => state.firebase.contents );
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
@@ -34,17 +31,11 @@ const TableResults = props => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const [rows, setRows]   = useState(articlesSelector);
+  const [rows, setRows]   = useState(articles);
 
   useEffect(()=>{
-    if(searchState.source === 'firebase'){
-      dispatch(Actions.getFirebaseContents(searchState));
-    };
-  },[dispatch, searchState])
-
-  useEffect(()=>{
-    setRows(articlesSelector);
-  },[articlesSelector]);
+    setRows(articles);
+  },[articles]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -77,7 +68,6 @@ const TableResults = props => {
         selected.slice(selectedIndex + 1),
       );
     }
-
     setSelected(newSelected);
   };
 
@@ -91,14 +81,14 @@ const TableResults = props => {
   };
 
   const handleEditContent = (event, row) => {
+    dispatch(FirebaseActions.setFirebaseContent(row));
     props.history.push({
-        pathname:'/edit',
-        article: row
+        pathname:'/firebase/edit',
       })
   }
 
   const handleDeleteContent = (event, row) => {
-    dispatch(Actions.deleteContent(row));
+    dispatch(FirebaseActions.deleteContent(row));
   }
 
   const isSelected = (title) => selected.indexOf(title) !== -1;

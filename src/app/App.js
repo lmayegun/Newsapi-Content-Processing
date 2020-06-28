@@ -28,6 +28,6 @@ function App() {
       </Provider>
     </AppContext.Provider>
   );
-}
+};
 
 export default App;

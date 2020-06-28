@@ -1,15 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
 import {PageLayout} from '@newsApi/components';
 import TableResults from './TableResults';
 
-const SearchPage = () => {
+const SearchPage = props => {
+
+  const {location} = props;
+
+  const dispatch = useDispatch();
+
+  const searchState  = useSelector( state => state.searchFilter );
+  const articlesState  = useSelector( state => state.newsApi.newsapiContents );
+  const [articles, setArticles] = useState();
+
+  useEffect(()=>{
+    setArticles(articlesState);
+  },[articlesState, setArticles]);
+
+  if(!articles || articles < 1){
+    return <h1> No Data </h1>
+  }
   return(
     <div>
       <PageLayout
         content={
           <div>
-            <TableResults/>
+            <TableResults
+              articles={articles}
+            />
           </div>
         }
       />

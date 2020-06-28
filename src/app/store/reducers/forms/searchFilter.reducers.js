@@ -1,17 +1,19 @@
-const initialState = {sourceState:'newsapi'};
+import _ from '@lodash';
+
+const initialState = {source:"newsapi", query: "", country: "gb", category: "health"};
 const searchFilter = (state = initialState, actions)=>{
   switch(actions.type){
     case 'SET_SEARCH':
     {
       return{
-        sourceState: actions.payload
+        state : actions.payload
       }
     }
     default:
     {
       return state
     }
-  }
-}
+  };
+};
 
 export default searchFilter;

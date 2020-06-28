@@ -10,7 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import AppUtils from '@newsApi/AppUtils';
 import EnhancedTableHead from 'app/pages/shared-components/TableHeadResult';
@@ -18,29 +18,22 @@ import TableToolbarEnhanced from 'app/pages/shared-components/TableToolbarEnhanc
 import * as NewsApiActions from 'app/store/actions/newsApi';
 
 const TableResults = (props) => {
+  const {articles} = props;
   const classes = useStyles();
 
   const dispatch = useDispatch();
-
-  const searchState  = useSelector( state => state.searchFilter.sourceState );
-  const articlesSelector  = useSelector( state => state.newsApi.contents );
 
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [rows, setRows] = useState(articlesSelector);
+
+  const [rows, setRows]   = useState(articles);
 
   useEffect(()=>{
-    if(searchState.source === 'newsapi'){
-      dispatch(NewsApiActions.setNewsApiContents(searchState));
-    };
-  },[dispatch, searchState]);
-
-  useEffect(()=>{
-    setRows(articlesSelector);
-  },[articlesSelector]);
+    setRows(articles);
+  },[articles]);
 
   if(!rows){
     return <h1> Rows is empty </h1>
@@ -91,9 +84,9 @@ const TableResults = (props) => {
   };
 
   const handleProcessContent = (event, row) => {
+    dispatch(NewsApiActions.setNewsApiContent(row));
     props.history.push({
-        pathname:'/forward',
-        article: row
+        pathname:'/newsapi/forward',
       })
   }
 

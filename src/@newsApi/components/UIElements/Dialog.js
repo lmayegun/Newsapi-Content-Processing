@@ -42,4 +42,4 @@ const FormDialog = props => {
   );
 }
 
-export default FormDialog;
+export default React.memo(FormDialog);
