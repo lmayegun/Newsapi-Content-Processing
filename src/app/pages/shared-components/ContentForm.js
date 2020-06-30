@@ -133,10 +133,8 @@ const ContentForm = (props)=>{
               btnTitle={"Preview"}
               closeTitle={'Close'}
            >
-              <a href={form.url} target="_blank" rel="noopener noreferrer"> {form.title} </a>
-              <div> {form.title} </div>
-              <div dangerouslySetInnerHTML={{__html:form.description}}/>
-              <div dangerouslySetInnerHTML={{__html:form.content}}/>
+
+
            </Dialog>
            <Button
               onClick={() => dispatch(Actions.saveNewsApiContent(form))}

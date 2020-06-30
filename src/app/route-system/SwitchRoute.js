@@ -6,8 +6,10 @@ import {
 
 import {
          FirebaseResults,
-         NewsApiResults,
          FirebaseEditContent,
+         D8Results,
+         D8EditContent,
+         NewsApiResults,
          NewContent,
          ForwardContent
         } from 'app/pages';
@@ -28,6 +30,12 @@ export default function BasicRoute() {
         </Route>
         <Route path="/firebase">
           <FirebaseResults />
+        </Route>
+        <Route path="/drupal8/edit">
+          <D8EditContent />
+        </Route>
+        <Route path="/drupal8">
+          <D8Results />
         </Route>
         <Route path="/newsapi/forward">
           <ForwardContent />
