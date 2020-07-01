@@ -120,59 +120,9 @@ const ContentForm = (props)=>{
         </form>
       )}
       <div className={classes.fieldAction}>
-       {formActions && (
-         formActions
-       )}
-
-       {formType === 'new' && (
-         <>
-           <Button
-              onClick={() => {alert('preview')}}
-              variant="contained"
-              color="primary"
-              size="small"
-              className={'btn'}
-              startIcon={<SaveIcon />}
-            >
-              Preview
-            </Button>
-            <Button
-               onClick={() => {alert("")}}
-               variant="contained"
-               color="primary"
-               size="small"
-                className={'btn'}
-               startIcon={<SaveIcon />}
-             >
-               Save
-             </Button>
-             <Dialog
-               btnTitle={"Forward"}
-               color={"primary"}
-               variant={"contained"}
-               style={{display:"inline", marginRight: 10}}
-               btnIcon={<SaveIcon />}
-             >
-               <div style={{alignContent:'center'}}>
-                 <Typography variant="h4" component="h1" gutterBottom>
-                   You are about to forward this content to firbase store.
-                 </Typography>
-                 <Button
-                   onClick={(e)=>{
-                     e.preventDefault();
-                   }}
-                   variant="contained"
-                   color="primary"
-                   size="small"
-                   className={'btn'}
-                   startIcon={<SaveIcon />}
-                 >
-                   Save To Firebase
-                 </Button>
-               </div>
-             </Dialog>
-         </>
-       )}
+         {formActions && (
+           formActions
+         )}
       </div>
     </div>
   )
@@ -213,21 +163,3 @@ const useStyles = makeStyles((theme) => ({
     }
   }
 }));
-
-ContentForm.defaultProps = {
-   sampleArticle: {
-    author: "",
-    description: "",
-    content: "",
-    category: "news",
-    publishedAt: "2020-06-13T09:37:00Z",
-    tags:[],
-    source:{
-      id: null,
-      name: ""
-    },
-    title: "",
-    url: "https://www.essentiallysports.com/boxing-news-anthony-joshua-im-not-interested-in-fighting-you-tyson-fury-sends-dillian-whyte-a-message/",
-    urlToImage: "https://image-cdn.essentiallysports.com/wp-content/uploads/20200212020935/Tyson-Fury-With-mic.jpg"
-  }
-}
