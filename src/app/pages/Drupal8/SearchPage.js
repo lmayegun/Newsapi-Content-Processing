@@ -12,7 +12,7 @@ const SearchPage = props => {
   const dispatch = useDispatch();
 
   const searchState  = useSelector( state => state.searchFilter );
-  const articlesState  = useSelector( state => state.firebase.firebaseContents );
+  const articlesState  = useSelector( state => state.drupal8.drupal8Contents );
   const [articles, setArticles] = useState();
 
   useEffect(()=>{

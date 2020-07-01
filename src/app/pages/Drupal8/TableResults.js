@@ -17,7 +17,7 @@ import AppUtils from '@newsApi/AppUtils';
 import EnhancedTableHead from 'app/pages/shared-components/TableHeadResult';
 import TableToolbarEnhanced from 'app/pages/shared-components/TableToolbarEnhanced';
 import {Dialog} from '@newsApi/components/UIElements';
-import * as FirebaseActions from 'app/store/actions/firebase';
+import * as Drupal8 from 'app/store/actions/drupal8';
 
 const TableResults = props => {
   const {articles} = props;
@@ -45,7 +45,7 @@ const TableResults = props => {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -81,14 +81,14 @@ const TableResults = props => {
   };
 
   const handleEditContent = (event, row) => {
-    dispatch(FirebaseActions.setFirebaseContent(row));
+    dispatch(Drupal8.setContent(row));
     props.history.push({
-        pathname:'/firebase/edit',
+        pathname:'/drupal8/edit',
       })
   }
 
   const handleDeleteContent = (event, row) => {
-    dispatch(FirebaseActions.deleteContent(row));
+    dispatch(Drupal8.deleteContent(row));
   }
 
   const isSelected = (title) => selected.indexOf(title) !== -1;
@@ -127,7 +127,7 @@ const TableResults = props => {
               {AppUtils.stableSort(rows, AppUtils.getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.title);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
@@ -135,12 +135,12 @@ const TableResults = props => {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.title}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
-                          onClick={(event) => handleClick(event, row.title)}
+                          onClick={(event) => handleClick(event, row.id)}
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
@@ -148,8 +148,8 @@ const TableResults = props => {
                       <TableCell component="th" id={labelId} scope="row" padding="none" style={{width: 600}}>
                         {row.title}
                       </TableCell>
-                      <TableCell align="right">{row.publishedAt}</TableCell>
-                      <TableCell align="right">{row.source.name}</TableCell>
+                      <TableCell align="right">{row.publishedOn}</TableCell>
+                      <TableCell align="right">{row.category}</TableCell>
                       <TableCell align="right">
                           <Button
                             variant="contained"

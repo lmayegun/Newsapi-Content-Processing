@@ -8,6 +8,7 @@ import {Select} from '@newsApi/components/FormElements';
 import {withRouter} from 'react-router-dom';
 import * as SearchActions from 'app/store/actions/forms';
 import * as Firebase from 'app/store/actions/firebase';
+import * as Drupal8 from 'app/store/actions/drupal8';
 import * as NewsApi from 'app/store/actions/newsApi';
 
 const SearchFilter = props =>{
@@ -24,6 +25,7 @@ const SearchFilter = props =>{
 
   function handleSubmit(){
     dispatch(Firebase.getFirebaseContents(form));
+    dispatch(Drupal8.getDrupal8Contents(form));
     dispatch(NewsApi.getNewsApiContents(form));
   };
 

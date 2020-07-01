@@ -8,22 +8,22 @@ const drupal8 = function ( state = initialState, action){
     {
       return{
         ...state,
-        firebaseContents: action.payload
+        drupal8Contents: action.payload
       }
     }
     case 'SET_D8_CONTENT_SUCCESS':
     {
       return{
         ...state,
-        firebaseContent: action.payload
+        drupal8Content: action.payload
       }
     }
     case 'DELETE_D8_CONTENT_SUCCESS':
     {
-      const filter = state.firebaseContents.filter(content => content.id !== action.payload );
+      const filter = state.drupal8Contents.filter(content => content.id !== action.payload );
       return{
         ...state,
-        firebaseContents: filter
+        drupal8Contents: filter
       }
     }
     default:

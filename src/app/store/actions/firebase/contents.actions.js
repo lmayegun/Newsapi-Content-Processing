@@ -12,6 +12,13 @@ export function setFirebaseContent( payload ){
   };
 };
 
+export function createFirebaseContent( payload ){
+  return{
+    type: "CREATE_FIREBASE_CONTENT",
+    payload
+  };
+};
+
 export function deleteContent( payload ){
   return{
     type: "DELETE_FIREBASE_CONTENT",

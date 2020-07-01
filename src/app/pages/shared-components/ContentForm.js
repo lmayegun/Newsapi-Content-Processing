@@ -13,16 +13,9 @@ import * as Actions from 'app/store/actions/newsApi';
 
 const ContentForm = (props)=>{
 
-  const { formType, article, forwardAction} = props;
+  const { formType, formActions, form, setForm, handleChange} = props;
 
   const classes = useStyles();
-  const dispatch = useDispatch();
-
-  const {form, handleChange, setForm} = useForm(article);
-
-  useEffect(()=>{
-      setForm(article);
-  },[article, setForm]);
 
   function handleChipChange(value, name){
     setForm(_.set({...form}, name, value.map(item => item.value)));
@@ -127,67 +120,8 @@ const ContentForm = (props)=>{
         </form>
       )}
       <div className={classes.fieldAction}>
-       {formType === 'edit' && (
-         <>
-           <Dialog
-              btnTitle={"Preview"}
-              closeTitle={'Close'}
-           >
-
-
-           </Dialog>
-           <Button
-              onClick={() => dispatch(Actions.saveNewsApiContent(form))}
-              variant="contained"
-              color="primary"
-              size="small"
-               className={'btn'}
-              startIcon={<SaveIcon />}
-            >
-              Update
-            </Button>
-            <Button
-               onClick={() => {alert('delete')}}
-               variant="contained"
-               color="primary"
-               size="small"
-               className={'btn'}
-               startIcon={<SaveIcon />}
-             >
-               Delete
-             </Button>
-           </>
-         )}
-
-       {formType === 'forward' && (
-         <>
-           <Dialog
-             btnTitle={"Forward"}
-             color={"primary"}
-             variant={"contained"}
-             style={{display:"inline", marginRight: 10}}
-             btnIcon={<SaveIcon />}
-           >
-             <div style={{alignContent:'center'}}>
-               <Typography variant="h4" component="h1" gutterBottom>
-                 You are about to forward this content to firbase store.
-               </Typography>
-               <Button
-                 onClick={(e)=>{
-                   e.preventDefault();
-                   forwardAction(form);
-                 }}
-                 variant="contained"
-                 color="primary"
-                 size="small"
-                 className={'btn'}
-                 startIcon={<SaveIcon />}
-               >
-                 Forward Content
-               </Button>
-             </div>
-           </Dialog>
-         </>
+       {formActions && (
+         formActions
        )}
 
        {formType === 'new' && (
@@ -203,7 +137,7 @@ const ContentForm = (props)=>{
               Preview
             </Button>
             <Button
-               onClick={() => dispatch(Actions.saveNewsApiContent(form))}
+               onClick={() => {alert("")}}
                variant="contained"
                color="primary"
                size="small"
@@ -212,6 +146,31 @@ const ContentForm = (props)=>{
              >
                Save
              </Button>
+             <Dialog
+               btnTitle={"Forward"}
+               color={"primary"}
+               variant={"contained"}
+               style={{display:"inline", marginRight: 10}}
+               btnIcon={<SaveIcon />}
+             >
+               <div style={{alignContent:'center'}}>
+                 <Typography variant="h4" component="h1" gutterBottom>
+                   You are about to forward this content to firbase store.
+                 </Typography>
+                 <Button
+                   onClick={(e)=>{
+                     e.preventDefault();
+                   }}
+                   variant="contained"
+                   color="primary"
+                   size="small"
+                   className={'btn'}
+                   startIcon={<SaveIcon />}
+                 >
+                   Save To Firebase
+                 </Button>
+               </div>
+             </Dialog>
          </>
        )}
       </div>

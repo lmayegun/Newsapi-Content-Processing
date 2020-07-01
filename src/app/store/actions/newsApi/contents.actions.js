@@ -11,10 +11,3 @@ export function setNewsApiContent( payload ){
     payload
   };
 };
-
-export function saveNewsApiContent( payload ){
-  return{
-    type: "SAVE_NEWSAPI_CONTENT",
-    payload
-  };
-};

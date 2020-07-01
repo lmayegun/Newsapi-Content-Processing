@@ -5,14 +5,21 @@ export function getDrupal8Contents( payload ){
   };
 };
 
-export function setDrupal8Content( payload ){
+export function setContent( payload ){
   return{
     type: "SET_D8_CONTENT",
     payload
   };
 };
 
-export function deleteDrupal8Content( payload ){
+export function createContent( payload ){
+  return{
+    type: "CREATE_D8_CONTENT",
+    payload
+  };
+};
+
+export function deleteContent( payload ){
   return{
     type: "DELETE_D8_CONTENT",
     payload
