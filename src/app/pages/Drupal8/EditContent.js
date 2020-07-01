@@ -1,20 +1,28 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import {TextField, Button, Typography} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import {PageLayout} from '@newsApi/components';
 import ContentForm from '../shared-components/ContentForm';
 import {Dialog} from '@newsApi/components/UIElements';
+import {useForm} from '@newsApi/hooks';
+import * as Drupal8 from 'app/store/actions/drupal8';
 
 const EditContent = ()=>{
   const articleState = useSelector( state => state.drupal8.drupal8Content);
 
   const [article, setArticle] = useState(articleState);
+  const {form, handleChange, setForm} = useForm(article);
 
   useEffect(()=>{
     setArticle(articleState);
   },[articleState, setArticle]);
+
+  useEffect(()=>{
+      setForm(article);
+  },[article, setForm]);
 
   return(
     <PageLayout
@@ -24,7 +32,9 @@ const EditContent = ()=>{
       content={
         <div>
           <ContentForm
-            article={article}
+            form={form}
+            setForm={setForm}
+            handleChange={handleChange}
             formType='edit'
             formActions={
               <>

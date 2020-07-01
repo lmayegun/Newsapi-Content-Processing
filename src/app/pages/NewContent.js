@@ -45,7 +45,7 @@ const EditContent = props =>{
     />
   )
 };
-export default EditContent;
+export default withRouter(EditContent);
 
 EditContent.defaultProps = {
   articleState : {
