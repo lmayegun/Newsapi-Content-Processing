@@ -19,7 +19,7 @@ const SearchFilter = props =>{
 
   useEffect(()=>{
     setForm(form)
-    props.history.push(`/${form.source}`)
+    // props.history.push(`/${form.source}`)
     dispatch(SearchActions.setSearchForm(form));
   },[form, setForm])
 

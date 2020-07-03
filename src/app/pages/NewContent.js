@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {TextField, Button, Typography} from '@material-ui/core';
+import SaveIcon from '@material-ui/icons/Save';
 
 import {PageLayout} from '@newsApi/components';
 import ContentForm from './shared-components/ContentForm';
@@ -17,7 +18,7 @@ const EditContent = props =>{
   const { articleState } = props;
 
   const [article, setArticle] = useState(articleState);
-  const {form, handleChange, setForm} = useForm(article);
+  const {form, handleChange, handleFile, setForm} = useForm(article);
 
   useEffect(()=>{
     setArticle(articleState);
@@ -26,6 +27,12 @@ const EditContent = props =>{
   useEffect(()=>{
       setForm(article);
   },[article, setForm]);
+
+  const saveContent = form => {
+                    // dispatch(Firebase.createFirebaseContent(form));
+                    dispatch(Drupal8.createContent(form));
+                    // props.history.push('/firebase');
+                  };
 
   return(
     <PageLayout
@@ -38,7 +45,37 @@ const EditContent = props =>{
             form={form}
             setForm={setForm}
             handleChange={handleChange}
+            handleFile={handleFile}
             formType='new'
+            formActions={
+              <>
+                <Dialog
+                  btnTitle={"Forward"}
+                  color={"primary"}
+                  variant={"contained"}
+                  style={{display:"inline", marginRight: 10}}
+                  btnIcon={<SaveIcon />}
+                >
+                  <div style={{alignContent:'center'}}>
+                    <Typography variant="h4" component="h1" gutterBottom>
+                      You are about to forward this content selected database.
+                    </Typography>
+                    <Button
+                      onClick={(e)=>{
+                        e.preventDefault();
+                        saveContent(form);
+                      }}
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      className={'btn'}
+                    >
+                       Forward
+                    </Button>
+                  </div>
+                </Dialog>
+              </>
+            }
           />
         </div>
       }

@@ -6,14 +6,14 @@ import {makeStyles} from '@material-ui/styles';
 import {useSelector, useDispatch} from 'react-redux';
 import _ from '@lodash';
 
-import {Select, TextEditor, TagsSelect} from '@newsApi/components/FormElements';
+import {Select, TextEditor, TagsSelect, ImageUpload} from '@newsApi/components/FormElements';
 import {Dialog} from '@newsApi/components/UIElements';
 import {useForm} from '@newsApi/hooks';
 import * as Actions from 'app/store/actions/newsApi';
 
 const ContentForm = (props)=>{
 
-  const { formType, formActions, form, setForm, handleChange} = props;
+  const { formType, formActions, form, setForm, handleChange, handleFile} = props;
 
   const classes = useStyles();
 
@@ -115,6 +115,14 @@ const ContentForm = (props)=>{
                   }}
                   isMulti
                 />
+            </div>
+
+            <div className={classes.field}>
+              <ImageUpload
+                id="image"
+                name="thumbImage"
+                onInput={handleFile}
+              />
             </div>
           </div>
         </form>

@@ -20,7 +20,7 @@ export default function BasicRoute() {
     <>
       <Switch>
         <Route exact path="/">
-          <FirebaseEditContent />
+          <NewContent />
         </Route>
         <Route path="/new">
           <NewContent />

@@ -34,17 +34,33 @@ function* setDrupal8Content({payload}){
 
 function* createDrupal8Content({payload}){
   try{
-    const {title, category, author, content, description, publishedAt, urlToImage} = payload;
-    alert(payload.title);
-    axios.post('http://localhost:3000/api/articles/',{
-                title,
-                category,
-                author,
-                publishedOn: publishedAt,
-                image: urlToImage,
-                summary: description,
-                body: content
-              });
+    const {title, category, author, content, description, publishedAt, urlToImage, thumbImage} = payload;
+
+    var bodyFormData = new FormData();
+    bodyFormData.append('image', thumbImage);
+    bodyFormData.append('title', title);
+    bodyFormData.append('category', category);
+    bodyFormData.append('author', author);
+    bodyFormData.append('summary', description);
+    bodyFormData.append('body', content);
+    bodyFormData.append('publishedOn', publishedAt);
+
+    console.log(bodyFormData, "data before sending to backend");
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/api/articles/',
+      data: bodyFormData,
+      headers: {'Content-Type': 'multipart/form-data' }
+      })
+      .then(function (response) {
+          //handle success
+          console.log(response);
+      })
+      .catch(function (response) {
+          //handle error
+          console.log(response);
+      });
+
   }catch(e){
 
   }
@@ -54,11 +70,14 @@ function* deleteDrupal8Content( {payload} ){
   const {category, id} = payload;
 
   try{
-    const request = yield database.ref(`articles/${category}/${id}`)
-                                  .remove()
-                                  .then(()=>{
-                                    return id;
-                                  });
+    const request = yield axios.delete(`http://localhost:3000/api/articles/${id}`)
+                                .then((res)=>{
+                                  console.log(res,'delete');
+                                  return res.data;
+                                })
+                                .catch((err)=>{
+                                  console.log(err);
+                                })
     yield put({type:"DELETE_D8_CONTENT_SUCCESS",payload:request});
   }catch(err){
 

@@ -44,7 +44,6 @@ const ForwardContent = props =>{
             setForm={setForm}
             handleChange={handleChange}
             formType='forward'
-            forwardAction={saveContent}
             formActions={
               <>
                 <Dialog

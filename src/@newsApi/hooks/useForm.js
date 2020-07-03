@@ -13,6 +13,17 @@ function useForm(initialState, onSubmit)
               [event.target.name]: event.target.type === 'checkbox' ? event.target.checked : event.target.value
           })
       );
+  console.log(event.target.name, "it exist");
+  }, []);
+
+  const handleFile = useCallback((event)=>{
+    event.persist();
+    setForm(
+      form => ({
+        ...form,
+        [event.target.name]: event.target.files[0]
+      })
+    );
   }, []);
 
   const resetForm = useCallback(() => {
@@ -37,6 +48,7 @@ function useForm(initialState, onSubmit)
   return {
       form,
       handleChange,
+      handleFile,
       handleSubmit,
       resetForm,
       setForm,
