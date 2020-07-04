@@ -1,8 +1,10 @@
 import React from 'react';
+import {useDispatch} from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import {withRouter, NavLink} from 'react-router-dom';
+import * as Settings from 'app/store/actions/settings';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 const ResourcesButton = (props)=>{
 
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.root}>
@@ -26,6 +29,7 @@ const ResourcesButton = (props)=>{
           avatar={<Avatar>N</Avatar>}
           label="News Api"
           clickable
+          onClick={()=>{dispatch(Settings.setMenuPath('newsapi'))}}
         />
       </NavLink>
       <NavLink to='/firebase'>
@@ -33,6 +37,7 @@ const ResourcesButton = (props)=>{
           avatar={<Avatar>F</Avatar>}
           label="Firebase "
           clickable
+          onClick={()=>{dispatch(Settings.setMenuPath('firebase'))}}
         />
       </NavLink>
       <NavLink to='/drupal8'>
@@ -40,6 +45,7 @@ const ResourcesButton = (props)=>{
           avatar={<Avatar>D8</Avatar>}
           label="Drupal 8"
           clickable
+          onClick={()=>{dispatch(Settings.setMenuPath('drupal8'))}}
         />
       </NavLink>
     </div>

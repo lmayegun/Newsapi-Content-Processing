@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from 'react';
-import {makeStyles, Paper, Button, TextField} from '@material-ui/core';
+import React, {useEffect, useRef, useState} from 'react';
+import {makeStyles, Paper, Button, TextField, Typography} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -15,13 +15,19 @@ const SearchFilter = props =>{
   const classes = styles();
   const dispatch = useDispatch();
   const searchFilterState = useSelector( state => state.searchFilter );
+  const sourcePath = useSelector( state => state.navigation.sourcePathState );
   const {form, handleChange, setForm} = useForm(searchFilterState);
+  const [source, setSource] = useState(sourcePath);
 
   useEffect(()=>{
     setForm(form)
     // props.history.push(`/${form.source}`)
     dispatch(SearchActions.setSearchForm(form));
-  },[form, setForm])
+  },[dispatch, form, setForm])
+
+  useEffect(()=>{
+    setSource(sourcePath);
+  },[setSource, sourcePath]);
 
   function handleSubmit(){
     dispatch(Firebase.getFirebaseContents(form));
@@ -36,14 +42,15 @@ const SearchFilter = props =>{
         handleSubmit()
       }}>
         <div className={classes.search}>
-          <Select
+        <Typography variant={'h4'} align={'center'}> {source.toUpperCase()} </Typography>
+          {/*<Select
             label={"Source"}
             handleChange={handleChange}
             value={form.source}
             name={"source"}
             options={[{newsapi:'News Api'}, {firebase:'Firebase'}, {drupal8:'Drupal 8'}]}
             className={"source"}
-          />
+          />*/}
           <TextField
             className={classes.textField}
             id="outlined-basic"
@@ -55,7 +62,7 @@ const SearchFilter = props =>{
           />
         </div>
         <div className={classes.filters}>
-          {form.source === 'newsapi' && (
+          {source === 'newsapi' && (
             <>
               <Select
                 label={"Category"}
@@ -76,7 +83,7 @@ const SearchFilter = props =>{
             </>
           )}
 
-          {form.source === 'firebase' && (
+          {source === 'firebase' && (
             <Select
               label={"Category"}
               handleChange={handleChange}
