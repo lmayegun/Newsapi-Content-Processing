@@ -13,7 +13,7 @@ import '../styles/App.css';
 
 function App() {
   return (
-    <AppContext.Provider value={{game:'gummo'}}>
+    <AppContext.Provider>
       <Provider store={store}>
         <ThemeProvider theme={defaultMuiTheme()}>
           <Router history={history}>

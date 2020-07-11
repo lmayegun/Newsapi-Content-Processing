@@ -1,13 +1,11 @@
 import {put, takeLatest} from 'redux-saga/effects';
 import axios from 'axios';
-import _ from '@lodash';
-import database from '../../../firebase/firebase';
 
 function* getDrupal8Contents({payload}){
-  const {category} = payload;
+  const {category, query} = payload;
 
   try{
-    const request = yield axios.get(`http://localhost:3000/api/articles/?category=${category}`)
+    const request = yield axios.get(`http://localhost:3000/api/articles/?category=${category}&search=${query}`)
                                 .then( res => {
                                   return res.data;
                                 })
@@ -34,16 +32,19 @@ function* setDrupal8Content({payload}){
 
 function* createDrupal8Content({payload}){
   try{
-    const {title, category, author, content, description, publishedAt, urlToImage, thumbImage} = payload;
+    const {title, category, author, content, description, publishedAt, thumbImage, tags} = payload;
 
     var bodyFormData = new FormData();
     bodyFormData.append('image', thumbImage);
     bodyFormData.append('title', title);
     bodyFormData.append('category', category);
     bodyFormData.append('author', author);
+    bodyFormData.append('description', description);
+    bodyFormData.append('content', content);
     bodyFormData.append('summary', description);
     bodyFormData.append('body', content);
     bodyFormData.append('publishedOn', publishedAt);
+    bodyFormData.append('tags', tags);
 
     console.log(bodyFormData, "data before sending to backend");
     axios({
@@ -61,13 +62,15 @@ function* createDrupal8Content({payload}){
           console.log(response);
       });
 
+      yield put({type:"CREATE_D8_CONTENT_SUCCESS", payload:payload});
+
   }catch(e){
 
   }
 };
 
 function* deleteDrupal8Content( {payload} ){
-  const {category, id} = payload;
+  const {id} = payload;
 
   try{
     const request = yield axios.delete(`http://localhost:3000/api/articles/${id}`)

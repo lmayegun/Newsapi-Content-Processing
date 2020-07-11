@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {TextField, Button, Typography} from '@material-ui/core';
+import {Button, Typography, TextField} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import {PageLayout} from '@newsApi/components';
@@ -29,9 +29,9 @@ const EditContent = props =>{
   },[article, setForm]);
 
   const saveContent = form => {
-                    // dispatch(Firebase.createFirebaseContent(form));
+                    dispatch(Firebase.createFirebaseContent(form));
                     dispatch(Drupal8.createContent(form));
-                    // props.history.push('/firebase');
+                    props.history.push('/firebase');
                   };
 
   return(
@@ -47,6 +47,40 @@ const EditContent = props =>{
             handleChange={handleChange}
             handleFile={handleFile}
             formType='new'
+            formImages={
+              <>
+                <div style={{marginBottom:20}}>
+                  <Typography variant="h6"> Images </Typography>
+                </div>
+                <TextField
+                  id="outlined-basic"
+                  label="Main Image"
+                  variant="outlined"
+                  name="urlToImage"
+                  value={form.urlToImage ? form.urlToImage : ''}
+                  onChange={handleChange}
+                  style={{width:33+'%'}}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Side Thumb Image"
+                  variant="outlined"
+                  name="sideThumbImg"
+                  value={form.sideThumbImg ? form.sideThumbImg : ''}
+                  onChange={handleChange}
+                  style={{width:33+'%'}}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Center Thumb Image"
+                  variant="outlined"
+                  name="centerThumbImg"
+                  value={form.centerThumbImg ? form.centerThumbImg : ''}
+                  onChange={handleChange}
+                  style={{width:33+'%'}}
+                />
+              </>
+            }
             formActions={
               <>
                 <Dialog

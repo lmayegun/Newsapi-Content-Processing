@@ -13,7 +13,6 @@ import {
          NewContent,
          ForwardContent
         } from 'app/pages';
-import SearchHeader from 'app/pages/shared-components/SearchHeader';
 
 export default function BasicRoute() {
   return (

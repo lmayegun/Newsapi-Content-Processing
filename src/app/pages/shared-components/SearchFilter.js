@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles, Paper, Button, TextField, Typography} from '@material-ui/core';
 import SendIcon from '@material-ui/icons/Send';
 import {useSelector, useDispatch} from 'react-redux';
@@ -20,9 +20,9 @@ const SearchFilter = props =>{
   const [source, setSource] = useState(sourcePath);
 
   useEffect(()=>{
-    setForm(form)
-    // props.history.push(`/${form.source}`)
-    dispatch(SearchActions.setSearchForm(form));
+    // setForm(form)
+    // dispatch(SearchActions.setSearchForm(form));
+    // dispatch(NewsApi.getNewsApiContents(form));
   },[dispatch, form, setForm])
 
   useEffect(()=>{
@@ -42,15 +42,7 @@ const SearchFilter = props =>{
         handleSubmit()
       }}>
         <div className={classes.search}>
-        <Typography variant={'h4'} align={'center'}> {source.toUpperCase()} </Typography>
-          {/*<Select
-            label={"Source"}
-            handleChange={handleChange}
-            value={form.source}
-            name={"source"}
-            options={[{newsapi:'News Api'}, {firebase:'Firebase'}, {drupal8:'Drupal 8'}]}
-            className={"source"}
-          />*/}
+          <Typography variant={'h4'} align={'center'}> {source.toUpperCase()} </Typography>
           <TextField
             className={classes.textField}
             id="outlined-basic"
@@ -62,16 +54,16 @@ const SearchFilter = props =>{
           />
         </div>
         <div className={classes.filters}>
+          <Select
+            label={"Category"}
+            handleChange={handleChange}
+            value={form.category}
+            name={"category"}
+            options={[{news:'News'}, {knowledge:'Knowledge'}, {health:'Health'}, {sport:'Sports'}, {business:'Business'}, {entertainment:'Entertainment'}]}
+            className={"selector"}
+          />
           {source === 'newsapi' && (
             <>
-              <Select
-                label={"Category"}
-                handleChange={handleChange}
-                value={form.category}
-                name={"category"}
-                options={[{business:'Business'}, {sports:'Sports'}, {health:'Health'}, {entertainment:'Entertaiment'}]}
-                className={"selector"}
-              />
               <Select
                 label={"Country"}
                 handleChange={handleChange}
@@ -81,17 +73,6 @@ const SearchFilter = props =>{
                 className={"selector"}
               />
             </>
-          )}
-
-          {source === 'firebase' && (
-            <Select
-              label={"Category"}
-              handleChange={handleChange}
-              value={form.category}
-              name={"category"}
-              options={[{news:'News'}, {knowledge:'Knowledge'}, {health:'Health'}, {sport:'Sports'}, {business:'Business'}, {entertainment:'Entertainment'}]}
-              className={"selector"}
-            />
           )}
         </div>
         <div className={classes.submit}>

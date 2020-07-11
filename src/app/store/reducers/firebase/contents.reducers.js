@@ -18,6 +18,13 @@ const firebase = function ( state = initialState, action){
         firebaseContent: action.payload
       }
     }
+    case 'UPDATE_FIREBASE_CONTENT_SUCCESS':
+    {
+      return{
+        ...state,
+        firebaseContent: action.payload
+      }
+    }
     case 'DELETE_FIREBASE_CONTENT_SUCCESS':
     {
       const filter = state.firebaseContents.filter(content => content.id !== action.payload );

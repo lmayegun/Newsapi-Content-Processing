@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {withRouter} from 'react-router-dom';
-import {TextField, Button, Typography} from '@material-ui/core';
+import {useSelector} from 'react-redux';
+// import {withRouter} from 'react-router-dom';
+import {Button, TextField, Typography} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import {PageLayout} from '@newsApi/components';
 import ContentForm from '../shared-components/ContentForm';
 import {Dialog} from '@newsApi/components/UIElements';
 import {useForm} from '@newsApi/hooks';
-import * as Drupal8 from 'app/store/actions/drupal8';
+// import * as Drupal8 from 'app/store/actions/drupal8';
 
 const EditContent = ()=>{
   const articleState = useSelector( state => state.drupal8.drupal8Content);
@@ -36,6 +36,40 @@ const EditContent = ()=>{
             setForm={setForm}
             handleChange={handleChange}
             formType='edit'
+            formImages={
+              <>
+                <div style={{marginBottom:20}}>
+                  <Typography variant="h6"> Images </Typography>
+                </div>
+                <TextField
+                  id="outlined-basic"
+                  label="Main Image"
+                  variant="outlined"
+                  name="urlToImage"
+                  value={form.urlToImage ? form.urlToImage : ''}
+                  onChange={handleChange}
+                  style={{width:33+'%'}}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Side Thumb Image"
+                  variant="outlined"
+                  name="sideThumbImg"
+                  value={form.sideThumbImg ? form.sideThumbImg : ''}
+                  onChange={handleChange}
+                  style={{width:33+'%'}}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Center Thumb Image"
+                  variant="outlined"
+                  name="centerThumbImg"
+                  value={form.centerThumbImg ? form.centerThumbImg : ''}
+                  onChange={handleChange}
+                  style={{width:33+'%'}}
+                />
+              </>
+            }
             formActions={
               <>
                 <Dialog

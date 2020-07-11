@@ -12,7 +12,6 @@ const ImageUpload = props => {
 
   const onBtnClick = () => {
     fileUpload.current.click();
-    console.log(fileUpload, "yuna");
   }
 
   useEffect(()=>{
@@ -28,7 +27,6 @@ const ImageUpload = props => {
   },[file]);
 
   const pickedHandler = event => {
-    console.log(event.target.files, "usher")
     let pickedFile;
     let fileIsValid = isValid;
     if(event.target.files || event.target.files.length === 1){
@@ -41,7 +39,6 @@ const ImageUpload = props => {
       fileIsValid = false;
     }
     props.onInput(event);
-    // props.onInput(props.id, pickedFile, fileIsValid);
   };
 
   return(

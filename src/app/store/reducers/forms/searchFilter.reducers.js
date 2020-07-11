@@ -1,5 +1,3 @@
-import _ from '@lodash';
-
 const initialState = {source:"newsapi", query: "", country: "gb", category: "health"};
 const searchFilter = (state = initialState, actions)=>{
   switch(actions.type){

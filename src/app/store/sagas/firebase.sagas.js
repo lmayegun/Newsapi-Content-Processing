@@ -40,9 +40,23 @@ function* setFirebaseContent({payload}){
 function* createFirebaseContent({payload}){
   try{
     database.ref(`articles/${payload.category}`).push({
-      ...payload
+      ...payload,
+      source: payload.source.name
     });
     yield put({type:"SET_FIREBASE_CONTENT_SUCCESS",payload})
+  }catch(e){
+
+  }
+};
+
+function* updateFirebaseContent({payload}){
+  const {category, id} = payload;
+  alert(id)
+  try{
+    database.ref(`articles/${category}/${id}`).set({
+      ...payload
+    });
+    yield put({type:"UPDATE_FIREBASE_CONTENT_SUCCESS",payload})
   }catch(e){
 
   }
@@ -69,5 +83,6 @@ export const firebaseSagas = [
   takeLatest("GET_FIREBASE_CONTENTS", getFirebaseContents),
   takeLatest("SET_FIREBASE_CONTENT", setFirebaseContent),
   takeLatest("CREATE_FIREBASE_CONTENT", createFirebaseContent),
+  takeLatest("UPDATE_FIREBASE_CONTENT", updateFirebaseContent),
   takeLatest("DELETE_FIREBASE_CONTENT", deleteContent ),
 ]

@@ -1,19 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React  from 'react';
 import {withRouter} from 'react-router-dom';
-import {TextField, Button, Typography} from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
+import {TextField} from '@material-ui/core';
+
 import {makeStyles} from '@material-ui/styles';
-import {useSelector, useDispatch} from 'react-redux';
 import _ from '@lodash';
 
 import {Select, TextEditor, TagsSelect, ImageUpload} from '@newsApi/components/FormElements';
-import {Dialog} from '@newsApi/components/UIElements';
-import {useForm} from '@newsApi/hooks';
-import * as Actions from 'app/store/actions/newsApi';
 
 const ContentForm = (props)=>{
 
-  const { formType, formActions, form, setForm, handleChange, handleFile} = props;
+  const { formType, formImages, formActions, form, setForm, handleChange, handleFile} = props;
 
   const classes = useStyles();
 
@@ -37,6 +33,12 @@ const ContentForm = (props)=>{
                 style={{width:100+'%'}}
               />
             </div>
+
+            {formImages && (
+              <div className={classes.field}>
+                {formImages}
+              </div>
+            )}
 
             <div className={classes.field}>
               <TextEditor
@@ -85,12 +87,24 @@ const ContentForm = (props)=>{
 
             <div className={classes.field}>
               <TextField
+                id="outlined-basic"
+                label="Source"
+                variant="outlined"
+                name="source"
+                onChange={handleChange}
+                value={form.source ? form.source.name : ''}
+                style={{width:100+'%'}}
+              />
+            </div>
+
+            <div className={classes.field}>
+              <TextField
                 type="datetime-local"
                 id="outlined-basic"
                 variant="outlined"
                 name="publishedAt"
                 onChange={handleChange}
-                value={form.publishedAt}
+                value={"2020-06-07T12:25"}
                 style={{width:100+'%'}}
               />
             </div>

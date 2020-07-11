@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 
 import {PageLayout} from '@newsApi/components';
@@ -7,11 +7,6 @@ import TableResults from './TableResults';
 
 const SearchPage = props => {
 
-  const {location} = props;
-
-  const dispatch = useDispatch();
-
-  const searchState  = useSelector( state => state.searchFilter );
   const articlesState  = useSelector( state => state.firebase.firebaseContents );
   const [articles, setArticles] = useState();
 

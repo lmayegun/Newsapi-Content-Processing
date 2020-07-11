@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {TextField, Button, Typography} from '@material-ui/core';
+import {Button, Typography, TextField, Divider} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import {PageLayout} from '@newsApi/components';
@@ -17,7 +17,7 @@ const ForwardContent = props =>{
   const articleState = useSelector( state => state.newsApi.newsapiContent);
 
   const [article, setArticle] = useState(articleState);
-  const {form, handleChange, setForm} = useForm(article);
+  const {form, handleChange, handleFile, setForm} = useForm(article);
 
   useEffect(()=>{
     setArticle(articleState);
@@ -30,7 +30,7 @@ const ForwardContent = props =>{
   const saveContent = form => {
                     dispatch(Firebase.createFirebaseContent(form));
                     dispatch(Drupal8.createContent(form));
-                    // props.history.push('/firebase');
+                    props.history.push('/newsapi');
                   };
   return(
     <PageLayout
@@ -43,7 +43,42 @@ const ForwardContent = props =>{
             form={form}
             setForm={setForm}
             handleChange={handleChange}
+            handleFile={handleFile}
             formType='forward'
+            formImages={
+              <>
+                <div style={{marginBottom:20}}>
+                  <Typography variant="h6"> Images </Typography>
+                </div>
+                <TextField
+                  id="outlined-basic"
+                  label="Main Image"
+                  variant="outlined"
+                  name="urlToImage"
+                  value={form.urlToImage ? form.urlToImage : ''}
+                  onChange={handleChange}
+                  style={{width:33+'%'}}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Side Thumb Image"
+                  variant="outlined"
+                  name="sideThumbImg"
+                  value={form.sideThumbImg ? form.sideThumbImg : ''}
+                  onChange={handleChange}
+                  style={{width:33+'%'}}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="Center Thumb Image"
+                  variant="outlined"
+                  name="centerThumbImg"
+                  value={form.centerThumbImg ? form.centerThumbImg : ''}
+                  onChange={handleChange}
+                  style={{width:33+'%'}}
+                />
+              </>
+            }
             formActions={
               <>
                 <Dialog

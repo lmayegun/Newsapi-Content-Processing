@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-import {useSelector, useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import AppUtils from '@newsApi/AppUtils';
 import EnhancedTableHead from 'app/pages/shared-components/TableHeadResult';
