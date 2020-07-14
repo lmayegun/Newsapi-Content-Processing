@@ -25,12 +25,30 @@ function* getFirebaseContents({payload}){
 }
 
 function* setFirebaseContent({payload}){
+    const {category, id} = payload;
+
   try{
-    // alert(payload.title);
-    payload.tags = [];
+    const request = yield database.ref(`articles/${category}/${id}`)
+                            .once('value')
+                            .then(function(snapshot) {
+                              console.log(snapshot.val(), "mem e")
+                              const articles = []
+                              snapshot.forEach((child)=>{
+                                  articles.push({
+                                    id: child.key,
+                                    ...child.val()
+                                  })
+                              })
+                              return snapshot.val();
+                            });
+                            
+    if(request.tags === undefined){
+      request.tags = [];
+    };
+
     yield put({
                type:"SET_FIREBASE_CONTENT_SUCCESS",
-               payload
+               payload: request
               })
   }catch(e){
 
@@ -51,7 +69,6 @@ function* createFirebaseContent({payload}){
 
 function* updateFirebaseContent({payload}){
   const {category, id} = payload;
-  alert(id)
   try{
     database.ref(`articles/${category}/${id}`).set({
       ...payload
@@ -64,7 +81,6 @@ function* updateFirebaseContent({payload}){
 
 function* deleteContent( {payload} ){
   const {category, id} = payload;
-
   try{
     const request = yield database.ref(`articles/${category}/${id}`)
                                   .remove()
@@ -76,8 +92,6 @@ function* deleteContent( {payload} ){
 
   }
 }
-
-
 
 export const firebaseSagas = [
   takeLatest("GET_FIREBASE_CONTENTS", getFirebaseContents),

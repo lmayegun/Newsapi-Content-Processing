@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from 'react-redux';
-// import {withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {Button, TextField, Typography} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
@@ -109,4 +109,4 @@ const EditContent = ()=>{
     />
   );
 };
-export default EditContent;
+export default withRouter(EditContent);

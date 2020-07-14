@@ -10,20 +10,32 @@ import {Dialog} from '@newsApi/components/UIElements';
 import {useForm} from '@newsApi/hooks';
 import * as Firebase from 'app/store/actions/firebase';
 
-const EditContent = ()=>{
+const EditContent = props =>{
+
+  const id = props.location.pathname.split('/')[4];
+  const category = props.location.pathname.split('/')[3];
+
   const dispatch = useDispatch();
   const articleState = useSelector( state => state.firebase.firebaseContent);
 
   const [article, setArticle] = useState(articleState);
-  const {form, handleChange, setForm} = useForm(article);
+  const {form, handleChange, setForm} = useForm(articleState);
+
+  useEffect(()=>{
+    dispatch(Firebase.setFirebaseContent({id, category}));
+  },[dispatch, id, category]);
 
   useEffect(()=>{
     setArticle(articleState);
   },[articleState, setArticle]);
 
   useEffect(()=>{
-      setForm(article);
-  },[article, setForm]);
+    setForm(articleState);
+  },[article, setForm, articleState]);
+ 
+  if(!article){
+    return <h1>no data found</h1>;
+  }
 
   return(
     <PageLayout

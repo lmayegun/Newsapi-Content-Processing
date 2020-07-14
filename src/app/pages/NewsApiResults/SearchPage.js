@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
-
+import {withRouter} from 'react-router-dom';
 import {PageLayout} from '@newsApi/components';
 import TableResults from './TableResults';
 
@@ -31,4 +31,4 @@ const SearchPage = props => {
   );
 };
 
-export default SearchPage;
+export default withRouter(SearchPage);
