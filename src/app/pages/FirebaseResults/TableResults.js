@@ -81,8 +81,6 @@ const TableResults = props => {
   };
 
   const handleEditContent = (event, row) => {
-    // dispatch(FirebaseActions.setFirebaseContent(row));
-    console.log(row, "picar")
     props.history.push({
         pathname:`/firebase/edit/${row.category}/${row.id}`,
         content: row

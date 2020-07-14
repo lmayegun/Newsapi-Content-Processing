@@ -32,10 +32,6 @@ const EditContent = props =>{
   useEffect(()=>{
     setForm(articleState);
   },[article, setForm, articleState]);
- 
-  if(!article){
-    return <h1>no data found</h1>;
-  }
 
   return(
     <PageLayout
@@ -43,81 +39,89 @@ const EditContent = props =>{
         <h1> Edit </h1>
       }
       content={
-        <div>
-          <ContentForm
-            form={form}
-            setForm={setForm}
-            handleChange={handleChange}
-            formType='edit'
-            formImages={
-              <>
-                <div style={{marginBottom:20}}>
-                  <Typography variant="h6"> Images </Typography>
-                </div>
-                <TextField
-                  id="outlined-basic"
-                  label="Main Image"
-                  variant="outlined"
-                  name="urlToImage"
-                  value={form.urlToImage ? form.urlToImage : ''}
-                  onChange={handleChange}
-                  style={{width:33+'%'}}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label="Side Thumb Image"
-                  variant="outlined"
-                  name="sideThumbImg"
-                  value={form.sideThumbImg ? form.sideThumbImg : ''}
-                  onChange={handleChange}
-                  style={{width:33+'%'}}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label="Center Thumb Image"
-                  variant="outlined"
-                  name="centerThumbImg"
-                  value={form.centerThumbImg ? form.centerThumbImg : ''}
-                  onChange={handleChange}
-                  style={{width:33+'%'}}
-                />
-              </>
-            }
-            formActions={
-              <>
-                <Dialog
-                   btnTitle={"Preview"}
-                   closeTitle={'Close'}
-                >
-                   {/*--<a href={form.url} target="_blank" rel="noopener noreferrer"> {form.title} </a>
-                   <div> {form.title} </div>
-                   <div dangerouslySetInnerHTML={{__html:form.description}}/>
-                   <div dangerouslySetInnerHTML={{__html:form.content}}/>*/}
-                </Dialog>
-                <Button
-                   onClick={() => {dispatch(Firebase.updateFirebaseContent(form))}}
-                   variant="contained"
-                   color="primary"
-                   size="small"
-                   className={'btn'}
-                   startIcon={<SaveIcon />}
-                 >
-                   Update
-                 </Button>
-                 <Button
-                    onClick={() => {alert('delete')}}
+        <>
+          { (!article) && (
+            <h1> no article </h1>
+          )}
+
+          { article && (
+            <div>
+            <ContentForm
+              form={form}
+              setForm={setForm}
+              handleChange={handleChange}
+              formType='edit'
+              formImages={
+                <>
+                  <div style={{marginBottom:20}}>
+                    <Typography variant="h6"> Images </Typography>
+                  </div>
+                  <TextField
+                    id="outlined-basic"
+                    label="Main Image"
+                    variant="outlined"
+                    name="urlToImage"
+                    value={form.urlToImage ? form.urlToImage : ''}
+                    onChange={handleChange}
+                    style={{width:33+'%'}}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Side Thumb Image"
+                    variant="outlined"
+                    name="sideThumbImg"
+                    value={form.sideThumbImg ? form.sideThumbImg : ''}
+                    onChange={handleChange}
+                    style={{width:33+'%'}}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Center Thumb Image"
+                    variant="outlined"
+                    name="centerThumbImg"
+                    value={form.centerThumbImg ? form.centerThumbImg : ''}
+                    onChange={handleChange}
+                    style={{width:33+'%'}}
+                  />
+                </>
+              }
+              formActions={
+                <>
+                  <Dialog
+                    btnTitle={"Preview"}
+                    closeTitle={'Close'}
+                  >
+                    {/*--<a href={form.url} target="_blank" rel="noopener noreferrer"> {form.title} </a>
+                    <div> {form.title} </div>
+                    <div dangerouslySetInnerHTML={{__html:form.description}}/>
+                    <div dangerouslySetInnerHTML={{__html:form.content}}/>*/}
+                  </Dialog>
+                  <Button
+                    onClick={() => {dispatch(Firebase.updateFirebaseContent(form))}}
                     variant="contained"
                     color="primary"
                     size="small"
                     className={'btn'}
                     startIcon={<SaveIcon />}
                   >
-                    Delete
+                    Update
                   </Button>
-                </>
-            }
-          />
-        </div>
+                  <Button
+                      onClick={() => {alert('delete')}}
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      className={'btn'}
+                      startIcon={<SaveIcon />}
+                    >
+                      Delete
+                    </Button>
+                  </>
+              }
+            />
+          </div>
+          )}
+        </>
       }
     />
   );
