@@ -6,7 +6,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {useForm} from '@newsApi/hooks';
 import {Select} from '@newsApi/components/FormElements';
 import {withRouter} from 'react-router-dom';
-import * as SearchActions from 'app/store/actions/forms';
 import * as Firebase from 'app/store/actions/firebase';
 import * as Drupal8 from 'app/store/actions/drupal8';
 import * as NewsApi from 'app/store/actions/newsApi';
@@ -14,10 +13,13 @@ import * as NewsApi from 'app/store/actions/newsApi';
 const SearchFilter = props =>{
   const classes = styles();
   const dispatch = useDispatch();
+
+  const path = props.location.pathname.split('/')[1];
+
   const searchFilterState = useSelector( state => state.searchFilter );
-  const sourcePath = useSelector( state => state.navigation.sourcePathState );
+  // const sourcePath = useSelector( state => state.navigation.sourcePathState );
   const {form, handleChange, setForm} = useForm(searchFilterState);
-  const [source, setSource] = useState(sourcePath);
+  const [source, setSource] = useState(path);
 
   useEffect(()=>{
     // setForm(form)
@@ -26,8 +28,8 @@ const SearchFilter = props =>{
   },[dispatch, form, setForm])
 
   useEffect(()=>{
-    setSource(sourcePath);
-  },[setSource, sourcePath]);
+    setSource(path);
+  },[setSource, path]);
 
   function handleSubmit(){
     dispatch(Firebase.getFirebaseContents(form));

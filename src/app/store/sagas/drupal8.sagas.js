@@ -3,9 +3,9 @@ import axios from 'axios';
 
 function* getDrupal8Contents({payload}){
   const {category, query} = payload;
-
+  const searchText = (query) ? `&search=${query}` : '';
   try{
-    const request = yield axios.get(`http://localhost:3000/api/articles/?category=${category}&search=${query}`)
+    const request = yield axios.get(`https://d8-recruiter-rest-simulator.herokuapp.com/api/articles/?category=${category}` + searchText)
                                 .then( res => {
                                   return res.data;
                                 })
