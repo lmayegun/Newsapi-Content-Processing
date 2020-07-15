@@ -134,7 +134,7 @@ const ContentForm = (props)=>{
             <div className={classes.field}>
               <ImageUpload
                 id="image"
-                name="thumbImage"
+                name="thumbImageFile"
                 onInput={handleFile}
               />
             </div>

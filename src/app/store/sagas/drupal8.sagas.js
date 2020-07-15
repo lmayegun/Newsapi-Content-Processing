@@ -32,10 +32,10 @@ function* setDrupal8Content({payload}){
 
 function* createDrupal8Content({payload}){
   try{
-    const {title, category, author, content, description, publishedAt, thumbImage, tags} = payload;
+    const {title, category, author, content, description, publishedAt, thumbImageFile, tags} = payload;
 
     var bodyFormData = new FormData();
-    bodyFormData.append('image', thumbImage);
+    bodyFormData.append('image', thumbImageFile);
     bodyFormData.append('title', title);
     bodyFormData.append('category', category);
     bodyFormData.append('author', author);
@@ -81,7 +81,8 @@ function* deleteDrupal8Content( {payload} ){
                                 .catch((err)=>{
                                   console.log(err);
                                 })
-    yield put({type:"DELETE_D8_CONTENT_SUCCESS",payload:request});
+
+    yield put({type:"DELETE_D8_CONTENT_SUCCESS",payload:request.res.id});
   }catch(err){
 
   }

@@ -149,7 +149,7 @@ const TableResults = props => {
                         {row.title}
                       </TableCell>
                       <TableCell align="right">{row.publishedAt}</TableCell>
-                      <TableCell align="right">{row.source.name}</TableCell>
+                      <TableCell align="right">{row.source}</TableCell>
                       <TableCell align="right">
                           <Button
                             variant="contained"

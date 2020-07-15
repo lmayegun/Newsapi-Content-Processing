@@ -13,18 +13,23 @@ const SearchPage = props => {
     setArticles(articlesState);
   },[articlesState, setArticles]);
 
-  if(!articles || articles < 1){
-    return <h1> No Data </h1>
-  }
   return(
     <div>
       <PageLayout
         content={
-          <div>
-            <TableResults
-              articles={articles}
-            />
-          </div>
+          <>
+            {(!articles || articles < 1) && (
+              <h1> No Data - please re-configure your search </h1>
+            )}
+
+            {(articles => 1) && (
+              <div>
+                <TableResults
+                  articles={articles}
+                />
+              </div>
+            )}
+          </>
         }
       />
     </div>
