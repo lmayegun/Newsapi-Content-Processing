@@ -81,10 +81,10 @@ const TableResults = props => {
   };
 
   const handleEditContent = (event, row) => {
-    dispatch(Drupal8.setContent(row));
     props.history.push({
-        pathname:'/drupal8/edit',
-      })
+      pathname:`/drupal8/edit/${row.category}/${row.id}`,
+      content: row
+    })
   }
 
   const handleDeleteContent = (event, row) => {
