@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {Button, Typography, TextField, Divider} from '@material-ui/core';
+import {Button, Typography, TextField, Divider, Checkbox} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import {PageLayout} from '@newsApi/components';
@@ -27,11 +27,17 @@ const ForwardContent = props =>{
       setForm(article);
   },[article, setForm]);
 
-  const saveContent = form => {
-                    dispatch(Firebase.createFirebaseContent(form));
-                    dispatch(Drupal8.createContent(form));
-                    props.history.push('/newsapi');
-                  };
+  const saveContent = 
+        form => {
+          if( form.firebase){
+            dispatch(Firebase.createFirebaseContent(form));
+          }
+
+          if( form.drupal8 ){
+            dispatch(Drupal8.createContent(form));
+          }
+            props.history.push('/');
+        }
   return(
     <PageLayout
       header={
@@ -92,6 +98,21 @@ const ForwardContent = props =>{
                     <Typography variant="h4" component="h1" gutterBottom>
                       You are about to forward this content selected database.
                     </Typography>
+
+                    <Checkbox
+                      name="drupal8"
+                      checked={form.drupal8}
+                      onChange={handleChange}
+                      inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />Drupal 8
+
+                    <Checkbox
+                      name="firebase"
+                      checked={form.firebase}
+                      onChange={handleChange}
+                      inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />Firebase
+
                     <Button
                       onClick={(e)=>{
                         e.preventDefault();

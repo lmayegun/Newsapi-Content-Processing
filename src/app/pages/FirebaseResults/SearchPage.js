@@ -8,10 +8,12 @@ import TableResults from './TableResults';
 const SearchPage = props => {
 
   const articlesState  = useSelector( state => state.firebase.firebaseContents );
-  const [articles, setArticles] = useState();
+  const [articles, setArticles] = useState([]);
 
   useEffect(()=>{
-    setArticles(articlesState);
+    if( articlesState !== undefined ){
+      setArticles(articlesState);
+    }
   },[articlesState, setArticles]);
 
   return(
@@ -23,7 +25,7 @@ const SearchPage = props => {
               <h1> No Data - please re-configure your search </h1>
             )}
 
-            {(articles => 1) && (
+            {(articles.length >= 1) && (
               <div>
                 <TableResults
                   articles={articles}

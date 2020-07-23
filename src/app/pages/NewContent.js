@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import {Button, Typography, TextField} from '@material-ui/core';
+import {Button, Typography, TextField, Checkbox} from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import {PageLayout} from '@newsApi/components';
@@ -28,11 +28,18 @@ const EditContent = props =>{
       setForm(article);
   },[article, setForm]);
 
-  const saveContent = form => {
-                    dispatch(Firebase.createFirebaseContent(form));
-                    dispatch(Drupal8.createContent(form));
-                    props.history.push('/firebase');
-                  };
+  const saveContent = 
+        form => {
+          if( form.firebase){
+            dispatch(Firebase.createFirebaseContent(form));
+          }
+
+          if( form.drupal8 ){
+            dispatch(Drupal8.createContent(form));
+          }
+
+          props.history.push('/newsapi');
+        };
 
   return(
     <PageLayout
@@ -92,8 +99,23 @@ const EditContent = props =>{
                 >
                   <div style={{alignContent:'center'}}>
                     <Typography variant="h4" component="h1" gutterBottom>
-                      You are about to forward this content selected database.
+                      Please select the source you will like to forward the content to.
                     </Typography>
+
+                    <Checkbox
+                      name="drupal8"
+                      checked={form.drupal8}
+                      onChange={handleChange}
+                      inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />Drupal 8
+
+                    <Checkbox
+                      name="firebase"
+                      checked={form.firebase}
+                      onChange={handleChange}
+                      inputProps={{ 'aria-label': 'primary checkbox' }}
+                    />Firebase
+
                     <Button
                       onClick={(e)=>{
                         e.preventDefault();
@@ -120,7 +142,7 @@ export default withRouter(EditContent);
 
 EditContent.defaultProps = {
   articleState : {
-    author: "aaaaaa",
+    author: "",
     description: "",
     content: "",
     category: "news",
@@ -130,8 +152,8 @@ EditContent.defaultProps = {
       id: null,
       name: ""
     },
-    title: "aaaaaaalukmon",
-    url: "https://www.essentiallysports.com/boxing-news-anthony-joshua-im-not-interested-in-fighting-you-tyson-fury-sends-dillian-whyte-a-message/",
-    urlToImage: "https://image-cdn.essentiallysports.com/wp-content/uploads/20200212020935/Tyson-Fury-With-mic.jpg"
+    title: "",
+    url: "",
+    urlToImage: ""
   }
 };

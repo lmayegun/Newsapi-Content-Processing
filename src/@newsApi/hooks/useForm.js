@@ -13,7 +13,6 @@ function useForm(initialState, onSubmit)
               [event.target.name]: event.target.type === 'checkbox' ? event.target.checked : event.target.value
           })
       );
-  console.log(event.target.name, "it exist");
   }, []);
 
   const handleFile = useCallback((event)=>{

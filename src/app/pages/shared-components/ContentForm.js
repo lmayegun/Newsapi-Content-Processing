@@ -14,7 +14,11 @@ const ContentForm = (props)=>{
   const classes = useStyles();
 
   function handleChipChange(value, name){
-    setForm(_.set({...form}, name, value.map(item => item.value)));
+    if(value !== null){
+      setForm(_.set({...form}, name, value.map(item => item.value)));
+    }else{
+      setForm(_.set({...form}, name, ''));
+    }
   };
 
   return(
@@ -113,10 +117,12 @@ const ContentForm = (props)=>{
               <TagsSelect
                   className="mt-8 mb-24"
                   value={
-                    form.tags.map(item => ({
-                      value: item,
-                      label: item
-                    }))
+                      form.tags.length > 0  && (
+                      form.tags.map(item => ({
+                        value: item,
+                        label: item
+                      }))
+                    )
                   }
                   onChange={(value) => handleChipChange(value, 'tags')}
                   placeholder="Select multiple categories"
@@ -132,11 +138,13 @@ const ContentForm = (props)=>{
             </div>
 
             <div className={classes.field}>
+              {/*
               <ImageUpload
                 id="image"
                 name="thumbImageFile"
                 onInput={handleFile}
               />
+              */}
             </div>
           </div>
         </form>
