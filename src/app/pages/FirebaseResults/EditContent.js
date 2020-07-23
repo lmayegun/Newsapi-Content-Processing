@@ -106,16 +106,6 @@ const EditContent = props =>{
                   >
                     Update
                   </Button>
-                  <Button
-                      onClick={() => {alert('delete')}}
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      className={'btn'}
-                      startIcon={<SaveIcon />}
-                    >
-                      Delete
-                    </Button>
                   </>
               }
             />

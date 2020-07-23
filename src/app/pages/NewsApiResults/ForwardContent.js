@@ -38,6 +38,12 @@ const ForwardContent = props =>{
           }
             props.history.push('/');
         }
+
+  if(!article){
+    props.history.push('/newsapi');
+    return null;
+  }
+
   return(
     <PageLayout
       header={
@@ -111,7 +117,7 @@ const ForwardContent = props =>{
                       checked={form.firebase}
                       onChange={handleChange}
                       inputProps={{ 'aria-label': 'primary checkbox' }}
-                    />Firebase
+                    />Firebase 
 
                     <Button
                       onClick={(e)=>{
